@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.schema';
 
@@ -8,19 +16,40 @@ export class UserController {
 
   @Post('addUser')
   async addUser(@Body() data: Required<User>) {
-    return this.userService.createUser(data);
+    const user = await this.userService.createUser(data);
+    return { message: 'User created successfully', user };
   }
 
   @Get('getAll')
   async getAllUsers() {
-    return this.userService.getAllUsers();
+    const users = await this.userService.getAllUsers();
+    return { data: users };
   }
 
-  @Get('/:id')
+  @Get(':id')
   async getUserById(@Param('id') id: string) {
     if (!id) {
       throw new Error('User ID is required');
     }
-    return this.userService.getUserById(id);
+    const user = await this.userService.getUserById(id);
+    return { message: 'User retrieved successfully', data: user };
+  }
+
+  @Delete(':id')
+  async deleteUserById(@Param('id') id: string) {
+    if (!id) {
+      throw new Error('User ID is required');
+    }
+    const user = await this.userService.deleteUser(id);
+    return { message: 'User deleted successfully', data: user };
+  }
+
+  @Put(':id')
+  async updateUserById(@Param('id') id: string, @Body() data: Required<User>) {
+    if (!id) {
+      throw new Error('User ID is required');
+    }
+    const user = await this.userService.updateUser(id, data);
+    return { message: 'User updated successfully', data: user };
   }
 }

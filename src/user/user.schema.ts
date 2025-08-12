@@ -3,15 +3,6 @@ import { Document, Types } from 'mongoose';
 
 export type UserDocument = User & Document;
 
-// @Schema({ timestamps: true })
-// export class WorkspaceRole {
-//   @Prop({ type: Types.ObjectId, ref: 'Workspace', required: true })
-//   workspaceId: Types.ObjectId;
-
-//   @Prop({ type: String, enum: ['Editor', 'Viewer'], required: true })
-//   role: string;
-// }
-
 @Schema({ timestamps: true })
 export class User {
   @Prop({ required: true })
