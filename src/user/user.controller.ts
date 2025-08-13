@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import {
   Body,
   Controller,
@@ -6,20 +7,24 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { User } from './user.schema';
+import { User } from './schemas/user.schema';
+import { CreateUserDto } from './dtos/create-user.dto';
+import { JwtAuthGuard } from 'src/auth/auth.guard';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post('addUser')
-  async addUser(@Body() data: Required<User>) {
+  async addUser(@Body() data: CreateUserDto) {
     const user = await this.userService.createUser(data);
     return { message: 'User created successfully', user };
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('getAll')
   async getAllUsers() {
     const users = await this.userService.getAllUsers();

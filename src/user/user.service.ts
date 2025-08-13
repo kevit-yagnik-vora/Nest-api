@@ -1,15 +1,49 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { User, UserDocument } from './user.schema';
+import { User, UserDocument } from './schemas/user.schema';
+import * as bcrypt from 'bcrypt';
 import { Model } from 'mongoose';
+import { CreateUserDto } from './dtos/create-user.dto';
 
 @Injectable()
 export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-  async createUser(data: Required<User>) {
-    const newUser = new this.userModel(data);
+  // async createUser(data: Required<User>) {
+  //   const newUser = new this.userModel(data);
+  //   return newUser.save();
+  // }
+
+  async createUser(createUserDto: CreateUserDto) {
+    const existingUser = await this.userModel.findOne({
+      email: createUserDto.email,
+    });
+    if (existingUser) {
+      throw new ConflictException('Email already in use');
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+    const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
+    const { password, ...userData } = createUserDto;
+    const newUser = new this.userModel({
+      ...userData,
+      passwordHash: hashedPassword,
+    });
     return newUser.save();
+  }
+
+  async findByEmail(email: string): Promise<User | null> {
+    return this.userModel.findOne({ email }).exec();
+  }
+
+  async findById(id: string): Promise<Omit<User, 'passwordHash'> | null> {
+    return this.userModel.findById(id).select('-passwordHash').lean();
   }
 
   async getAllUsers() {
