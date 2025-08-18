@@ -39,10 +39,6 @@ export class UserService {
     return this.userModel.findOne({ email }).exec();
   }
 
-  async findById(id: string): Promise<Omit<User, 'passwordHash'> | null> {
-    return this.userModel.findById(id).select('-passwordHash').lean();
-  }
-
   async getAllUsers() {
     return this.userModel.find().exec();
   }
@@ -58,6 +54,7 @@ export class UserService {
     if (!user) throw new NotFoundException('User Not Found');
     return user;
   }
+
   async updateUser(id: string, data: Required<User>) {
     const user = await this.userModel
       .findByIdAndUpdate(id, data, { new: true })

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
@@ -53,7 +52,7 @@ export class AuthService {
       phoneNumber: user.phoneNumber,
       workspaces: user.workspaces,
     };
-    return this.jwt.signAsync(payload, { expiresIn: '10m' }); // uses configured secret/expiry
+    return this.jwt.signAsync(payload, { expiresIn: '1d' }); // uses configured secret/expiry
   }
 
   async refreshToken(refreshToken: string) {
@@ -61,7 +60,7 @@ export class AuthService {
       token: refreshToken,
     });
 
-    const user = await this.usersService.findById(tokenDoc!.userId);
+    const user = await this.usersService.getUserById(tokenDoc!.userId);
     if (!tokenDoc) throw new UnauthorizedException('Invalid refresh token');
 
     // Issue new access token
