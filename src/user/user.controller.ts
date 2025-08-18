@@ -12,8 +12,9 @@ import {
 import { UserService } from './user.service';
 import { User } from './schemas/user.schema';
 import { CreateUserDto } from './dtos/create-user.dto';
-import { JwtAuthGuard } from 'src/auth/auth.guard';
+import { AuthGuard } from 'src/auth/auth.guard';
 
+@UseGuards(AuthGuard)
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -24,7 +25,6 @@ export class UserController {
     return { message: 'User created successfully', user };
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get('getAll')
   async getAllUsers() {
     const users = await this.userService.getAllUsers();

@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+
 import {
   ConflictException,
   Injectable,
@@ -15,11 +18,6 @@ import { CreateUserDto } from './dtos/create-user.dto';
 export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-  // async createUser(data: Required<User>) {
-  //   const newUser = new this.userModel(data);
-  //   return newUser.save();
-  // }
-
   async createUser(createUserDto: CreateUserDto) {
     const existingUser = await this.userModel.findOne({
       email: createUserDto.email,
@@ -28,7 +26,6 @@ export class UserService {
       throw new ConflictException('Email already in use');
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
     const { password, ...userData } = createUserDto;
     const newUser = new this.userModel({
