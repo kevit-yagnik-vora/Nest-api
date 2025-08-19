@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { WorkspaceModule } from './workspace/workspace.module';
 import { ContactModule } from './contact/contact.module';
 import { MessageTemplateModule } from './message-template/message-template.module';
+import { CampaignModule } from './campaign/campaign.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { MessageTemplateModule } from './message-template/message-template.modul
     WorkspaceModule,
     ContactModule,
     MessageTemplateModule,
+    CampaignModule,
   ],
   controllers: [],
   providers: [],
