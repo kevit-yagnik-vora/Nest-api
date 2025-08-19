@@ -1,0 +1,48 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import {
+  MessageTemplate,
+  MessageTemplateDocument,
+} from './schemas/message-template.schema';
+import { Model } from 'mongoose';
+import { CreateMessageTemplateDto } from './dtos/create-message-template.dto';
+import { UpdateMessageTemplateDto } from './dtos/update-message-template.dto';
+
+@Injectable()
+export class MessageTemplateService {
+  constructor(
+    @InjectModel(MessageTemplate.name)
+    private messageTemplateModel: Model<MessageTemplateDocument>,
+  ) {}
+
+  async getAllMessageTemplates() {
+    return this.messageTemplateModel.find().exec();
+  }
+
+  async getMessageTemplateById(id: string) {
+    return this.messageTemplateModel.findById(id).exec();
+  }
+
+  async createMessageTemplate(user: any, data: CreateMessageTemplateDto) {
+    const messageTemplate = new this.messageTemplateModel({
+      ...data,
+      createdBy: user.userId,
+    });
+    return messageTemplate.save();
+  }
+
+  async deleteMessageTemplate(id: string) {
+    return this.messageTemplateModel.findByIdAndDelete(id).exec();
+  }
+
+  async updateMessageTemplate(id: string, data: UpdateMessageTemplateDto) {
+    const messageTemplate = await this.messageTemplateModel
+      .findByIdAndUpdate(id, data, { new: true })
+      .exec();
+    if (!messageTemplate)
+      throw new NotFoundException('Message Template Not Found');
+    return messageTemplate;
+  }
+}
