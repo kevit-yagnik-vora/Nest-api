@@ -1,0 +1,720 @@
+{
+	"info": {
+		"_postman_id": "7c68d0ad-b93b-44bf-aa42-7ac0c35fe8be",
+		"name": "OutreachHub-Nest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "addUser",
+					"id": "bb00f65a-7a85-40f7-adc1-9eda62f1247c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"demo\",\n    \"email\": \"demo@gmail.com\",\n    \"phoneNumber\": \"1010101010\",\n    \"passwordHash\":\"admin\",\n    \"isAdmin\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/user/addUser"
+					},
+					"response": []
+				},
+				{
+					"name": "getAllUsers",
+					"id": "af894498-62df-4842-9641-cf0ac8b4182c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODljNWI2N2IxODFmMmMxYTJiNWQ2MjAiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbXSwiaWF0IjoxNzU1MTQ4ODk0LCJleHAiOjE3NTUxNTI0OTR9.7oVi0E3KjCC9g_B9MdFdSSf_M2t3oGXVWzKFChIAv_M",
+								"type": "text"
+							}
+						],
+						"url": "{{URL}}/user/getAll"
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"id": "a719e111-ae7b-4632-b5e5-038478b7cb3d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODljNWI2N2IxODFmMmMxYTJiNWQ2MjAiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbXSwiaWF0IjoxNzU1MTQ4ODk0LCJleHAiOjE3NTUxNTI0OTR9.7oVi0E3KjCC9g_B9MdFdSSf_M2t3oGXVWzKFChIAv_M",
+								"type": "text"
+							}
+						],
+						"url": "{{URL}}/user/688cb334ee5f02ba6a99edfa"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUser",
+					"id": "1bfcd857-b465-45d4-9e86-8d4bcc1c047f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{URL}}/user/688b56950c3b58ab8b152878"
+					},
+					"response": []
+				},
+				{
+					"name": "updateUser",
+					"id": "662b526e-8140-4987-8b16-262661f481a2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODhjYjMzNGVlNWYwMmJhNmE5OWVkZmEiLCJlbWFpbCI6Im1hc3RlckFkbWluQGdtYWlsLmNvbSIsIm5hbWUiOiJtYXN0ZXJBZG1pbiIsImlzQWRtaW4iOnRydWUsIndvcmtzcGFjZXMiOltdLCJpYXQiOjE3NTQ1NjIxMzEsImV4cCI6MTc1NDY0ODUzMX0.rfptErz9LT5SI_zlGvfJF17f2_Ko8k_VYzfLxy2X9y8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"demo\",\n    \"email\": \"demo@gmail.com\",\n    \"phoneNumber\": \"1010101010\",\n    \"passwordHash\":\"admin\",\n    \"isAdmin\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/user/689b20cd1e88e30bf5314b73"
+					},
+					"response": []
+				},
+				{
+					"name": "userLogin",
+					"id": "ecbf6add-ea78-4bfc-9f05-fb2d7bca367b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"demo@gmail.com\",\n    \"password\":\"demo\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/auth/login"
+					},
+					"response": []
+				},
+				{
+					"name": "userLogout",
+					"id": "0625607f-c945-4ea8-ac8e-36a2df845304",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\":\"d46b8f1f1b3e56a1ac98794871893d25289f6df8a6f2998094c7a9bde65d5562497a0988608fe893\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/auth/logout"
+					},
+					"response": []
+				},
+				{
+					"name": "refreshToken",
+					"id": "810071c1-7532-4744-8343-b7af4239f72a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\":\"e68a508c36c59aa75d0e3d2ffcf8ace6eaa3113b4185165a7fccc13848deed73f244b495d8684c4c\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/auth/refresh"
+					},
+					"response": []
+				}
+			],
+			"id": "2989c262-1165-4b74-a6b2-50a965e2c783"
+		},
+		{
+			"name": "Workspaces",
+			"item": [
+				{
+					"name": "getAllWorkspaces",
+					"id": "76fa150f-c18c-4fa4-90fc-630753191443",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODljNWI2N2IxODFmMmMxYTJiNWQ2MjAiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbXSwiaWF0IjoxNzU1NTAyMjg0LCJleHAiOjE3NTU1ODg2ODR9.g8f5bpCP3rkGMI9fRM_gVOXS1Ob9cO7c2e8zI_5oXDQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\":\"e68a508c36c59aa75d0e3d2ffcf8ace6eaa3113b4185165a7fccc13848deed73f244b495d8684c4c\"\n}"
+						},
+						"url": "{{URL}}/workspace/getAllWorkspaces"
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"id": "c667825c-9938-4b8b-8419-a9d6650ebdee",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODljNWI2N2IxODFmMmMxYTJiNWQ2MjAiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbXSwiaWF0IjoxNzU1NTAyMjg0LCJleHAiOjE3NTU1ODg2ODR9.g8f5bpCP3rkGMI9fRM_gVOXS1Ob9cO7c2e8zI_5oXDQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\":\"e68a508c36c59aa75d0e3d2ffcf8ace6eaa3113b4185165a7fccc13848deed73f244b495d8684c4c\"\n}"
+						},
+						"url": "{{URL}}/workspace/689325b89d0e24d15bdfa543"
+					},
+					"response": []
+				},
+				{
+					"name": "addWorkspace",
+					"id": "b559f26d-ec1a-4a23-b53d-0329f942174f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODljNWI2N2IxODFmMmMxYTJiNWQ2MjAiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbXSwiaWF0IjoxNzU1NTAyMjg0LCJleHAiOjE3NTU1ODg2ODR9.g8f5bpCP3rkGMI9fRM_gVOXS1Ob9cO7c2e8zI_5oXDQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"demo12223\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/workspace/createWorkspace"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteWorkspace",
+					"id": "5acc66e7-332b-4d5e-90b7-baa8d1f4b989",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODljNWI2N2IxODFmMmMxYTJiNWQ2MjAiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbXSwiaWF0IjoxNzU1NTAyMjg0LCJleHAiOjE3NTU1ODg2ODR9.g8f5bpCP3rkGMI9fRM_gVOXS1Ob9cO7c2e8zI_5oXDQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\":\"e68a508c36c59aa75d0e3d2ffcf8ace6eaa3113b4185165a7fccc13848deed73f244b495d8684c4c\"\n}"
+						},
+						"url": "{{URL}}/workspace/689329d5b2ff83453b26a51f"
+					},
+					"response": []
+				},
+				{
+					"name": "updateWorkspace",
+					"id": "0b859af0-1905-4f8c-8933-e5531a046571",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODljNWI2N2IxODFmMmMxYTJiNWQ2MjAiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbXSwiaWF0IjoxNzU1NTAyMjg0LCJleHAiOjE3NTU1ODg2ODR9.g8f5bpCP3rkGMI9fRM_gVOXS1Ob9cO7c2e8zI_5oXDQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"new name\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/workspace/68a2df7f22d98f043214bacb"
+					},
+					"response": []
+				}
+			],
+			"id": "2943e861-84ef-4bae-9e4c-fcd1aeb1de0b"
+		},
+		{
+			"name": "Contacts",
+			"item": [
+				{
+					"name": "getAll",
+					"id": "fa611810-46d9-4d1d-859a-83bd67629578",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODljNWI2N2IxODFmMmMxYTJiNWQ2MjAiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbXSwiaWF0IjoxNzU1NTAyMjg0LCJleHAiOjE3NTU1ODg2ODR9.g8f5bpCP3rkGMI9fRM_gVOXS1Ob9cO7c2e8zI_5oXDQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\":\"e68a508c36c59aa75d0e3d2ffcf8ace6eaa3113b4185165a7fccc13848deed73f244b495d8684c4c\"\n}"
+						},
+						"url": "{{URL}}/contact/getAllContacts"
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"id": "a9f0fd4a-80df-4619-8b14-e8127a5046df",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODljNWI2N2IxODFmMmMxYTJiNWQ2MjAiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbXSwiaWF0IjoxNzU1NTAyMjg0LCJleHAiOjE3NTU1ODg2ODR9.g8f5bpCP3rkGMI9fRM_gVOXS1Ob9cO7c2e8zI_5oXDQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\":\"e68a508c36c59aa75d0e3d2ffcf8ace6eaa3113b4185165a7fccc13848deed73f244b495d8684c4c\"\n}"
+						},
+						"url": "{{URL}}/contact/68a300bbc9b015c5a8a760a3"
+					},
+					"response": []
+				},
+				{
+					"name": "addContact",
+					"id": "28e7384c-ca98-49d1-a1bd-6f90736d1bda",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODljNWI2N2IxODFmMmMxYTJiNWQ2MjAiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbXSwiaWF0IjoxNzU1NTAyMjg0LCJleHAiOjE3NTU1ODg2ODR9.g8f5bpCP3rkGMI9fRM_gVOXS1Ob9cO7c2e8zI_5oXDQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"yagnik\",\n    \"phoneNumber\":\"7899874566\",\n    \"tags\":[\"friend\",\"Office\"],\n    \"workspaceId\":\"68a2df7f22d98f043214bacb\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/contact/createContact"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteContact",
+					"id": "1957bc00-e0ba-4486-83d7-d4ed507a696b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODljNWI2N2IxODFmMmMxYTJiNWQ2MjAiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbXSwiaWF0IjoxNzU1NTAyMjg0LCJleHAiOjE3NTU1ODg2ODR9.g8f5bpCP3rkGMI9fRM_gVOXS1Ob9cO7c2e8zI_5oXDQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\":\"e68a508c36c59aa75d0e3d2ffcf8ace6eaa3113b4185165a7fccc13848deed73f244b495d8684c4c\"\n}"
+						},
+						"url": "{{URL}}/contact/68a300bbc9b015c5a8a760a3"
+					},
+					"response": []
+				},
+				{
+					"name": "updateContact",
+					"id": "8618dffe-ac48-4b15-b094-f46acfe0cc8f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODljNWI2N2IxODFmMmMxYTJiNWQ2MjAiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbXSwiaWF0IjoxNzU1NTAyMjg0LCJleHAiOjE3NTU1ODg2ODR9.g8f5bpCP3rkGMI9fRM_gVOXS1Ob9cO7c2e8zI_5oXDQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"yagnik vora\",\n    \"phoneNumber\":\"7899874566\",\n    \"tags\":[\"friend\",\"Office\"],\n    \"workspaceId\":\"68a2df7f22d98f043214bacb\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/contact/689332f7da920837e47bd28b"
+					},
+					"response": []
+				}
+			],
+			"id": "e0f62f78-3355-4551-a670-233b8236581e"
+		},
+		{
+			"name": "Message",
+			"item": [
+				{
+					"name": "getAll",
+					"id": "db3497ac-4dbb-4160-b28d-0003fe9a63c5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODljNWI2N2IxODFmMmMxYTJiNWQ2MjAiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbXSwiaWF0IjoxNzU1NTAyMjg0LCJleHAiOjE3NTU1ODg2ODR9.g8f5bpCP3rkGMI9fRM_gVOXS1Ob9cO7c2e8zI_5oXDQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"yagnik vora\",\n    \"phoneNumber\":\"7899874566\",\n    \"tags\":[\"friend\",\"Office\"],\n    \"workspaceId\":\"68a2df7f22d98f043214bacb\"\n}"
+						},
+						"url": "{{URL}}/message-template/getAllMessageTemplates"
+					},
+					"response": []
+				},
+				{
+					"name": "addMessageTemplate",
+					"id": "1ba3d2e7-bf8a-45d0-acde-e684fc81fcad",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODljNWI2N2IxODFmMmMxYTJiNWQ2MjAiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbXSwiaWF0IjoxNzU1NTE2MDkwLCJleHAiOjE3NTU2MDI0OTB9.PqSoQ0IQ_Q_pl0RjrgNoSbwKkiPTx23gpazhwCj6WbQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"yagnik vora\",\n    \"type\":\"Text\",\n    \"message\":{\n        \"text\":\"Good Morning\"\n    },\n    \"workspaceId\":\"68a2df7f22d98f043214bacb\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/message-template/createMessageTemplate"
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"id": "bbdf2a4d-1e74-4600-95e7-19ba5f755909",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODljNWI2N2IxODFmMmMxYTJiNWQ2MjAiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbXSwiaWF0IjoxNzU1NTAyMjg0LCJleHAiOjE3NTU1ODg2ODR9.g8f5bpCP3rkGMI9fRM_gVOXS1Ob9cO7c2e8zI_5oXDQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"yagnik vora\",\n    \"phoneNumber\":\"7899874566\",\n    \"tags\":[\"friend\",\"Office\"],\n    \"workspaceId\":\"68a2df7f22d98f043214bacb\"\n}"
+						},
+						"url": "{{URL}}/message-template/68a30d2d964de3fe69a202c9"
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "69b2f13e-2d05-4310-88b1-b96185b15604",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODljNWI2N2IxODFmMmMxYTJiNWQ2MjAiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbXSwiaWF0IjoxNzU1NTAyMjg0LCJleHAiOjE3NTU1ODg2ODR9.g8f5bpCP3rkGMI9fRM_gVOXS1Ob9cO7c2e8zI_5oXDQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"yagnik vora\",\n    \"phoneNumber\":\"7899874566\",\n    \"tags\":[\"friend\",\"Office\"],\n    \"workspaceId\":\"68a2df7f22d98f043214bacb\"\n}"
+						},
+						"url": "{{URL}}/message-template/68a30d2d964de3fe69a202c9"
+					},
+					"response": []
+				},
+				{
+					"name": "updateMessage",
+					"id": "fc5bffc0-d3bd-4266-836b-1275aaf244c7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODljNWI2N2IxODFmMmMxYTJiNWQ2MjAiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbXSwiaWF0IjoxNzU1NTAyMjg0LCJleHAiOjE3NTU1ODg2ODR9.g8f5bpCP3rkGMI9fRM_gVOXS1Ob9cO7c2e8zI_5oXDQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"yagnik vora\",\n    \"type\":\"Text\",\n    \"message\":{\n        \"text\":\"Good Morning new message\"\n    },\n    \"workspaceId\":\"68a2df7f22d98f043214bacb\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/message-template/68a30db0f122de36ba86dee9"
+					},
+					"response": []
+				}
+			],
+			"id": "14432162-e961-495d-bf6f-c1d848a04ed7"
+		},
+		{
+			"name": "Campaign",
+			"item": [
+				{
+					"name": "getAll",
+					"id": "b096b110-49d7-4ffe-a5cc-8b32d4df70e4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODljNWI2N2IxODFmMmMxYTJiNWQ2MjAiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbXSwiaWF0IjoxNzU1NTAyMjg0LCJleHAiOjE3NTU1ODg2ODR9.g8f5bpCP3rkGMI9fRM_gVOXS1Ob9cO7c2e8zI_5oXDQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\":\"e68a508c36c59aa75d0e3d2ffcf8ace6eaa3113b4185165a7fccc13848deed73f244b495d8684c4c\"\n}"
+						},
+						"url": "{{URL}}/campaign/getAllCampaigns"
+					},
+					"response": []
+				},
+				{
+					"name": "addCampaign",
+					"id": "58869b6c-ce96-47db-b09d-95ef5bcc876c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODljNWI2N2IxODFmMmMxYTJiNWQ2MjAiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbXSwiaWF0IjoxNzU1NTc4MzM0LCJleHAiOjE3NTU2NjQ3MzR9.adFrnaKehdf2UZkDipPy5mayGbMBJ2QyHvKpgUFOlkk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"demo campaign 2\",\n    \"description\": \"This is demo campaign\",\n    \"status\": \"Draft\",\n    \"message\": {\n        \"text\": \"demo text\"\n    },\n    \"selectedTags\":[\"demo\",\"friend\"],\n    \"launchedAt\": \"11-12-2004\",\n    \"workspaceId\": \"689325b89d0e24d15bdfa543\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/campaign/createCampaign"
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"id": "49b66126-c4a4-4e30-a2df-a48084e3dba8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODljNWI2N2IxODFmMmMxYTJiNWQ2MjAiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbXSwiaWF0IjoxNzU1NTAyMjg0LCJleHAiOjE3NTU1ODg2ODR9.g8f5bpCP3rkGMI9fRM_gVOXS1Ob9cO7c2e8zI_5oXDQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\":\"e68a508c36c59aa75d0e3d2ffcf8ace6eaa3113b4185165a7fccc13848deed73f244b495d8684c4c\"\n}"
+						},
+						"url": "{{URL}}/campaign/68a400a78f4ea1fae1af27d8"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteCampaign",
+					"id": "fdc56934-1156-4505-a647-b9b2464447de",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODljNWI2N2IxODFmMmMxYTJiNWQ2MjAiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbXSwiaWF0IjoxNzU1NTAyMjg0LCJleHAiOjE3NTU1ODg2ODR9.g8f5bpCP3rkGMI9fRM_gVOXS1Ob9cO7c2e8zI_5oXDQ",
+								"type": "text"
+							}
+						],
+						"url": "{{URL}}/campaign/68a400a78f4ea1fae1af27d8"
+					},
+					"response": []
+				},
+				{
+					"name": "updateCampaign",
+					"id": "50f05b8a-3e94-40b3-93e8-f754edd83cbe",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODljNWI2N2IxODFmMmMxYTJiNWQ2MjAiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbXSwiaWF0IjoxNzU1NTc4MzM0LCJleHAiOjE3NTU2NjQ3MzR9.adFrnaKehdf2UZkDipPy5mayGbMBJ2QyHvKpgUFOlkk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"demo campaign\",\n    \"description\": \"This is demo campaign\",\n    \"status\": \"Draft\",\n    \"message\": {\n        \"text\": \"demo text\"\n    },\n    \"selectedTags\":[\"demo\",\"friend\"],\n    \"launchedAt\": \"11-12-2004\",\n    \"workspaceId\": \"689325b89d0e24d15bdfa543\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/campaign/68a4000d8f4ea1fae1af27d4"
+					},
+					"response": []
+				}
+			],
+			"id": "ce439db2-c6f4-45e6-a38e-6cfc802abb72"
+		}
+	]
+}
