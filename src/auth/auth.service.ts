@@ -22,7 +22,6 @@ export class AuthService {
 
   async login(dto: LoginDto) {
     const user = await this.usersService.findByEmail(dto.email);
-    console.log(user);
     if (!user) throw new UnauthorizedException('Invalid credentials');
 
     const ok = await bcrypt.compare(dto.password, user.passwordHash);
@@ -69,7 +68,14 @@ export class AuthService {
   }
 
   async logout(refreshToken: string) {
-    await this.refreshTokenModel.deleteOne({ token: refreshToken });
+    await this.refreshTokenModel
+      .deleteOne({ token: refreshToken })
+      .then(() => {
+        console.log('Logout Success');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     return { message: 'Logged out successfully' };
   }
 }

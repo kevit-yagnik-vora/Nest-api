@@ -36,7 +36,7 @@ export class UserController {
       throw new Error('User ID is required');
     }
     const user = await this.userService.getUserById(id);
-    return { message: 'User retrieved successfully', data: user };
+    return user;
   }
 
   @Delete(':id')

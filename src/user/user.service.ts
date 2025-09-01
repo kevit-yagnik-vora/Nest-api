@@ -44,7 +44,10 @@ export class UserService {
   }
 
   async getUserById(id: string) {
-    const user = await this.userModel.findById(id).exec();
+    const user = await this.userModel
+      .findById(id)
+      .select({ passwordHash: 0 })
+      .exec();
     if (!user) throw new NotFoundException('User Not Found');
     return user;
   }
