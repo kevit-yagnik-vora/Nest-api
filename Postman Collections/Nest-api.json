@@ -454,6 +454,29 @@
 						"url": "{{URL}}/contact/689332f7da920837e47bd28b"
 					},
 					"response": []
+				},
+				{
+					"name": "contactsByWorkspace",
+					"id": "c7b931c1-8364-4d33-b2ef-690b822d3688",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGI2NzVlMzgxODJjOTUzYTZkMWM3YzYiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbXSwiaWF0IjoxNzU2Nzg4NDAxLCJleHAiOjE3NTY4NzQ4MDF9.okOv1SmMaJ3Tm67MGxRIDssrKTpBxYFqHNWDPj6Trys",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"demo\",\n    \"email\": \"demo@gmail.com\",\n    \"phoneNumber\": \"1010101010\",\n    \"passwordHash\":\"admin\",\n    \"isAdmin\": true,\n    \"workspaces\" : [{\n        \"workspaceId\" : \"68b678293dad43d89ee0c74e\",\n        \"role\" : \"Editor\"\n    }]\n}"
+						},
+						"url": "{{URL}}/contact/byWorkspace/68b678293dad43d89ee0c74e"
+					},
+					"response": []
 				}
 			],
 			"id": "e0f62f78-3355-4551-a670-233b8236581e"
