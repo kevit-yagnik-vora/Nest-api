@@ -19,7 +19,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"demo\",\n    \"email\": \"demo@gmail.com\",\n    \"phoneNumber\": \"1010101010\",\n    \"passwordHash\":\"admin\",\n    \"isAdmin\": true\n}",
+							"raw": "{\n    \"name\": \"demo\",\n    \"email\": \"demo@gmail.com\",\n    \"phoneNumber\": \"1010101010\",\n    \"password\":\"admin\",\n    \"isAdmin\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -126,7 +126,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\":\"demo@gmail.com\",\n    \"password\":\"demo\"\n}",
+							"raw": "{\n    \"email\":\"demo@gmail.com\",\n    \"password\":\"admin\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
