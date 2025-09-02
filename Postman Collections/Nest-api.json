@@ -98,14 +98,14 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"demo\",\n    \"email\": \"demo@gmail.com\",\n    \"phoneNumber\": \"1010101010\",\n    \"passwordHash\":\"admin\",\n    \"isAdmin\": true,\n    \"workspaces\" : [\n        \n    ]\n}",
+							"raw": "{\n    \"name\": \"demo\",\n    \"email\": \"demo@gmail.com\",\n    \"phoneNumber\": \"1010101010\",\n    \"passwordHash\":\"admin\",\n    \"isAdmin\": true,\n    \"workspaces\" : [{\n        \"workspaceId\" : \"68b678293dad43d89ee0c74e\",\n        \"role\" : \"Editor\"\n    }]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "{{URL}}/user/689b20cd1e88e30bf5314b73"
+						"url": "{{URL}}/user/68b675e38182c953a6d1c7c6"
 					},
 					"response": []
 				},
