@@ -92,13 +92,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODhjYjMzNGVlNWYwMmJhNmE5OWVkZmEiLCJlbWFpbCI6Im1hc3RlckFkbWluQGdtYWlsLmNvbSIsIm5hbWUiOiJtYXN0ZXJBZG1pbiIsImlzQWRtaW4iOnRydWUsIndvcmtzcGFjZXMiOltdLCJpYXQiOjE3NTQ1NjIxMzEsImV4cCI6MTc1NDY0ODUzMX0.rfptErz9LT5SI_zlGvfJF17f2_Ko8k_VYzfLxy2X9y8",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGI2NzVlMzgxODJjOTUzYTZkMWM3YzYiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbXSwiaWF0IjoxNzU2Nzg4NDAxLCJleHAiOjE3NTY4NzQ4MDF9.okOv1SmMaJ3Tm67MGxRIDssrKTpBxYFqHNWDPj6Trys",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"demo\",\n    \"email\": \"demo@gmail.com\",\n    \"phoneNumber\": \"1010101010\",\n    \"passwordHash\":\"admin\",\n    \"isAdmin\": true\n}",
+							"raw": "{\n    \"name\": \"demo\",\n    \"email\": \"demo@gmail.com\",\n    \"phoneNumber\": \"1010101010\",\n    \"passwordHash\":\"admin\",\n    \"isAdmin\": true,\n    \"workspaces\" : [\n        \n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -262,7 +262,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\":\"demo12223\"\n}",
+							"raw": "{\n    \"name\":\"Demo Campaign\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
