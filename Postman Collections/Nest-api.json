@@ -60,11 +60,11 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODljNWI2N2IxODFmMmMxYTJiNWQ2MjAiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbXSwiaWF0IjoxNzU1MTQ4ODk0LCJleHAiOjE3NTUxNTI0OTR9.7oVi0E3KjCC9g_B9MdFdSSf_M2t3oGXVWzKFChIAv_M",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGI2NzVlMzgxODJjOTUzYTZkMWM3YzYiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbeyJ3b3Jrc3BhY2VJZCI6IjY4YjY3ODI5M2RhZDQzZDg5ZWUwYzc0ZSIsInJvbGUiOiJFZGl0b3IiLCJfaWQiOiI2OGI2N2IzYWUwMjUwNmJlNzFhNmJmYzEifV0sImlhdCI6MTc1Njg3NzU0MSwiZXhwIjoxNzU3MzA5NTQxfQ.71vFWgozlqxmSKI0VFzxOnKDAwFqajfzCxiBeQ3473o",
 								"type": "text"
 							}
 						],
-						"url": "{{URL}}/user/688cb334ee5f02ba6a99edfa"
+						"url": "{{URL}}/user/68b675e38182c953a6d1c7c6"
 					},
 					"response": []
 				},
