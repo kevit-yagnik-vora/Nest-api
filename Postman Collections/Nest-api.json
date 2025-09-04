@@ -25,7 +25,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"demo1\",\n    \"email\": \"demo1@gmail.com\",\n    \"phoneNumber\": \"1010101011\",\n    \"password\":\"admin1\",\n    \"isAdmin\": true,\n    \"workspaces\": [\n        {\n            \"workspace\" : \"68b7d301c0f4c445812d54d7\",\n            \"role\" : \"Editor\"\n        }\n    ]\n}",
+							"raw": "{\n    \"name\": \"demo1\",\n    \"email\": \"demo1@gmail.com\",\n    \"phoneNumber\": \"1010101011\",\n    \"password\":\"admin1\",\n    \"isAdmin\": true,\n    \"workspaces\": [\n        {\n            \"workspaceId\" : \"68b7d301c0f4c445812d54d7\",\n            \"role\" : \"Editor\"\n        }\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -480,6 +480,19 @@
 							"mode": "raw",
 							"raw": "{\n    \"name\": \"demo\",\n    \"email\": \"demo@gmail.com\",\n    \"phoneNumber\": \"1010101010\",\n    \"passwordHash\":\"admin\",\n    \"isAdmin\": true,\n    \"workspaces\" : [{\n        \"workspaceId\" : \"68b678293dad43d89ee0c74e\",\n        \"role\" : \"Editor\"\n    }]\n}"
 						},
+						"url": "{{URL}}/contact/byWorkspace/68b678293dad43d89ee0c74e"
+					},
+					"response": []
+				},
+				{
+					"name": "allByWorkspace",
+					"id": "b5d33d6a-8e15-4efe-b982-ed3ca7d48cf5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
 						"url": "{{URL}}/contact/byWorkspace/68b678293dad43d89ee0c74e"
 					},
 					"response": []
