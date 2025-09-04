@@ -183,12 +183,13 @@
 							{
 								"key": "",
 								"value": "",
-								"type": "text"
+								"type": "text",
+								"disabled": true
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"refreshToken\":\"e68a508c36c59aa75d0e3d2ffcf8ace6eaa3113b4185165a7fccc13848deed73f244b495d8684c4c\"\n}",
+							"raw": "{\n    \"refresh_token\":\"4a7433972baafcf22235585b40a444d7d5ced12789f0c8551dd9e6e819af63ad98fad3235fb2f6c1dbddab5409936b015993\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
