@@ -25,7 +25,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"demo2\",\n    \"email\": \"demo2@gmail.com\",\n    \"phoneNumber\": \"1010101012\",\n    \"password\":\"admin2\",\n    \"isAdmin\": true\n}",
+							"raw": "{\n    \"name\": \"demo1\",\n    \"email\": \"demo1@gmail.com\",\n    \"phoneNumber\": \"1010101011\",\n    \"password\":\"admin1\",\n    \"isAdmin\": true,\n    \"workspaces\": [\n        {\n            \"workspace\" : \"68b7d301c0f4c445812d54d7\",\n            \"role\" : \"Editor\"\n        }\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -98,20 +98,20 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGI2NzVlMzgxODJjOTUzYTZkMWM3YzYiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbeyJ3b3Jrc3BhY2VJZCI6IjY4YjY3ODI5M2RhZDQzZDg5ZWUwYzc0ZSIsInJvbGUiOiJFZGl0b3IiLCJfaWQiOiI2OGI2N2IzYWUwMjUwNmJlNzFhNmJmYzEifV0sImlhdCI6MTc1Njg3NzU0MSwiZXhwIjoxNzU3MzA5NTQxfQ.71vFWgozlqxmSKI0VFzxOnKDAwFqajfzCxiBeQ3473o",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGI2NzVlMzgxODJjOTUzYTZkMWM3YzYiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbeyJ3b3Jrc3BhY2VJZCI6IjY4YjY3ODI5M2RhZDQzZDg5ZWUwYzc0ZSIsInJvbGUiOiJFZGl0b3IiLCJfaWQiOiI2OGI3ZDM2MGMwZjRjNDQ1ODEyZDU0ZDkifSx7IndvcmtzcGFjZUlkIjoiNjhiN2QyZjdjMGY0YzQ0NTgxMmQ1NGQ1Iiwicm9sZSI6IkVkaXRvciIsIl9pZCI6IjY4YjdkMzYwYzBmNGM0NDU4MTJkNTRkYSJ9LHsid29ya3NwYWNlSWQiOiI2OGI3ZDMwMWMwZjRjNDQ1ODEyZDU0ZDciLCJyb2xlIjoiVmlld2VyIiwiX2lkIjoiNjhiN2QzNjBjMGY0YzQ0NTgxMmQ1NGRiIn1dLCJpYXQiOjE3NTY5Njc5NDgsImV4cCI6MTc1NzM5OTk0OH0.S_3GXHWQMiY7KZEVmA4ocXfdtUXgy7ARpefOgbMK47s",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"demo\",\n    \"email\": \"demo@gmail.com\",\n    \"phoneNumber\": \"1010101010\",\n    \"passwordHash\":\"admin\",\n    \"isAdmin\": true,\n    \"workspaces\" : [\n        {\n        \"workspaceId\" : \"68b678293dad43d89ee0c74e\",\n        \"role\" : \"Editor\"\n        },\n        {\n        \"workspaceId\" : \"68b7d2f7c0f4c445812d54d5\",\n        \"role\" : \"Editor\"\n        },\n        {\n        \"workspaceId\" : \"68b7d301c0f4c445812d54d7\",\n        \"role\" : \"Viewer\"\n        }\n\n    ]\n}",
+							"raw": "{\n    \"name\": \"demo2\",\n    \"email\": \"demo2@gmail.com\",\n    \"phoneNumber\": \"1010101012\",\n    \"password\":\"admin2\",\n    \"isAdmin\": true,\n    \"workspace\": [\n        {\n            \"workspace\" : \"68b7d301c0f4c445812d54d7\",\n            \"role\" : \"Editor\"\n        }\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "{{URL}}/user/68b675e38182c953a6d1c7c6"
+						"url": "{{URL}}/user/68b9342636dc20e146b7813e"
 					},
 					"response": []
 				},
