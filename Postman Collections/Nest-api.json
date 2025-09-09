@@ -217,7 +217,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODljNWI2N2IxODFmMmMxYTJiNWQ2MjAiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbXSwiaWF0IjoxNzU1NTAyMjg0LCJleHAiOjE3NTU1ODg2ODR9.g8f5bpCP3rkGMI9fRM_gVOXS1Ob9cO7c2e8zI_5oXDQ",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGI2NzVlMzgxODJjOTUzYTZkMWM3YzYiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbeyJ3b3Jrc3BhY2VJZCI6IjY4YjY3ODI5M2RhZDQzZDg5ZWUwYzc0ZSIsInJvbGUiOiJFZGl0b3IiLCJfaWQiOiI2OGI3ZDM2MGMwZjRjNDQ1ODEyZDU0ZDkifSx7IndvcmtzcGFjZUlkIjoiNjhiN2QyZjdjMGY0YzQ0NTgxMmQ1NGQ1Iiwicm9sZSI6IkVkaXRvciIsIl9pZCI6IjY4YjdkMzYwYzBmNGM0NDU4MTJkNTRkYSJ9LHsid29ya3NwYWNlSWQiOiI2OGI3ZDMwMWMwZjRjNDQ1ODEyZDU0ZDciLCJyb2xlIjoiVmlld2VyIiwiX2lkIjoiNjhiN2QzNjBjMGY0YzQ0NTgxMmQ1NGRiIn1dLCJpYXQiOjE3NTc0MDE0MjEsImV4cCI6MTc1NzgzMzQyMX0.MF1ffIVqcRbXulCzAvP-Rz4NLqex3QhegCz1mBHE1hQ",
 								"type": "text"
 							}
 						],
@@ -225,7 +225,7 @@
 							"mode": "raw",
 							"raw": "{\n    \"refreshToken\":\"e68a508c36c59aa75d0e3d2ffcf8ace6eaa3113b4185165a7fccc13848deed73f244b495d8684c4c\"\n}"
 						},
-						"url": "{{URL}}/workspace/getAllWorkspaces"
+						"url": "{{URL}}/workspace/"
 					},
 					"response": []
 				},
