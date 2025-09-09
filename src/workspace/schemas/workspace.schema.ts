@@ -9,6 +9,9 @@ export class Workspace {
   @Prop({ required: true })
   name: string;
 
+  @Prop({ required: true })
+  description: string;
+
   @Prop({ type: Types.ObjectId, ref: User.name, required: true })
   createdBy: Types.ObjectId;
 }

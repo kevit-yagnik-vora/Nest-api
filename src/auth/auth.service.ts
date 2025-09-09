@@ -51,16 +51,19 @@ export class AuthService {
       phoneNumber: user.phoneNumber,
       workspaces: user.workspaces,
     };
-    return this.jwt.signAsync(payload, { expiresIn: '1d' }); // uses configured secret/expiry
+    return this.jwt.signAsync(payload, { expiresIn: '5d' }); // uses configured secret/expiry
   }
 
   async refreshToken(refreshToken: string) {
+    console.log(refreshToken);
     const tokenDoc = await this.refreshTokenModel.findOne({
       token: refreshToken,
     });
 
-    const user = await this.usersService.getUserById(tokenDoc!.userId);
+    console.log(tokenDoc);
+
     if (!tokenDoc) throw new UnauthorizedException('Invalid refresh token');
+    const user = await this.usersService.getUserById(tokenDoc.userId);
 
     // Issue new access token
 

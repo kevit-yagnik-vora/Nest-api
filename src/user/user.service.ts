@@ -46,10 +46,32 @@ export class UserService {
   async getUserById(id: string) {
     const user = await this.userModel
       .findById(id)
-      .select({ passwordHash: 0 })
+      .select('-passwordHash')
+      .populate({
+        path: 'workspaces',
+        populate: {
+          path: 'workspaceId',
+          model: 'Workspace',
+          // 1. Optimize the query to only fetch the fields you need
+          select: '_id name',
+        },
+      })
       .exec();
-    if (!user) throw new NotFoundException('User Not Found');
-    return user;
+
+    if (!user) {
+      throw new NotFoundException('User Not Found');
+    }
+
+    // 2. Transform the result before returning it
+    const userObject = user.toObject(); // Convert Mongoose document to a plain object
+
+    userObject.workspaces = userObject.workspaces.map((ws: any) => ({
+      workspaceId: ws.workspaceId, // Rename 'workspaceId' to 'workspace'
+      role: ws.role,
+      // The subdocument _id is automatically excluded here
+    }));
+
+    return userObject;
   }
 
   async deleteUser(id: string) {
@@ -59,8 +81,14 @@ export class UserService {
   }
 
   async updateUser(id: string, data: Required<User>) {
+    const hashedPassword = await bcrypt.hash(data.passwordHash, 10);
+
     const user = await this.userModel
-      .findByIdAndUpdate(id, data, { new: true })
+      .findByIdAndUpdate(
+        id,
+        { ...data, passwordHash: hashedPassword },
+        { new: true },
+      )
       .exec();
     if (!user) throw new NotFoundException('User Not Found');
     return user;

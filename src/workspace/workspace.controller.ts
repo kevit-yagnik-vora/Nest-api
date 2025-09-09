@@ -7,25 +7,34 @@ import {
   Param,
   Post,
   Put,
+  Query,
   Request,
   UseGuards,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { WorkspaceService } from './workspace.service';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { CreateWorkspaceDto } from './dtos/workspace.dto';
+import { AddUserDto } from './dtos/add-user.dto';
 
 @UseGuards(AuthGuard)
 @Controller('workspace')
 export class WorkspaceController {
   constructor(private readonly workspaceService: WorkspaceService) {}
 
-  @Get('getAllWorkspaces')
-  async getAllWorkspaces() {
-    return {
-      message: 'Workspace fetched Successfully',
-      data: await this.workspaceService.getAllWorkspaces(),
-    };
+  // 1. UPDATED THE ROUTE to match your frontend API call
+  @Get('')
+  async getAllWorkspaces(
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10, // A default of 10 is common
+    // 2. ADDED the 'order' query parameter with a default value
+    @Query('order') order: string = 'asc',
+  ) {
+    // 3. PASS all parameters to the service. The '+' ensures they are treated as numbers.
+    return this.workspaceService.getAllWorkspaces(+page, +limit, order);
   }
+
   @Post('createWorkspace')
   async createWorkspace(
     @Request() req,
@@ -40,12 +49,18 @@ export class WorkspaceController {
     };
   }
 
-  @Get(':workspaceId')
-  async getWorkspaceById(@Param('workspaceId') workspaceId: string) {
-    return {
-      message: 'Workspace Fetched Successfully',
-      data: await this.workspaceService.getWorkspaceById(workspaceId),
-    };
+  @Post(':id/users')
+  @UsePipes(new ValidationPipe())
+  addUserToWorkspace(
+    @Param('id') workspaceId: string,
+    @Body() addUserDto: AddUserDto,
+  ) {
+    return this.workspaceService.addUser(workspaceId, addUserDto);
+  }
+
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
+    return this.workspaceService.findOneById(id);
   }
 
   @Delete(':workspaceId')

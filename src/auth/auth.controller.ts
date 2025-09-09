@@ -13,12 +13,13 @@ export class AuthController {
   }
   @UseGuards(AuthGuard)
   @Post('logout')
-  async logout(@Body() dto: { refreshToken: string }) {
-    return this.authService.logout(dto.refreshToken);
+  async logout(@Body() dto: { refresh_token: string }) {
+    return this.authService.logout(dto.refresh_token);
   }
 
   @Post('refresh')
-  async refreshToken(@Body() dto: { refreshToken: string }) {
-    return this.authService.refreshToken(dto.refreshToken);
+  async refreshToken(@Body() dto: { refresh_token: string }) {
+    console.log('controller', dto.refresh_token);
+    return this.authService.refreshToken(dto.refresh_token);
   }
 }

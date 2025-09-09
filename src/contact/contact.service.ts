@@ -43,4 +43,61 @@ export class ContactService {
     if (!contact) throw new NotFoundException('Contact Not Found');
     return contact;
   }
+
+  // contacts.service.ts
+  async contactsByWorkspace(
+    workspaceId: string,
+    user: any,
+    page = 1,
+    limit = 10,
+  ) {
+    const skip = (page - 1) * limit;
+
+    const [contacts, total] = await Promise.all([
+      this.contactModel
+        .find({ workspaceId: workspaceId, createdBy: user.userId })
+        .skip(skip)
+        .limit(limit)
+        .exec(),
+      this.contactModel.countDocuments({
+        workspaceId: workspaceId,
+        createdBy: user.userId,
+      }),
+    ]);
+
+    return {
+      data: contacts,
+      pagination: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      },
+    };
+  }
+
+  async allContactsByWorkspace(workspaceId: string, page = 1, limit = 10) {
+    const skip = (page - 1) * limit;
+
+    const [contacts, total] = await Promise.all([
+      this.contactModel
+        .find({ workspaceId: workspaceId })
+        .skip(skip)
+        .limit(limit)
+        .exec(),
+      this.contactModel.countDocuments({
+        workspaceId: workspaceId,
+      }),
+    ]);
+
+    return {
+      data: contacts,
+      pagination: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      },
+    };
+  }
 }

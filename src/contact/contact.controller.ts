@@ -7,6 +7,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   Request,
   UseGuards,
 } from '@nestjs/common';
@@ -30,10 +31,7 @@ export class ContactController {
   @Get(':contactId')
   async getContact(@Param('contactId') contactId: string) {
     const contact = await this.contactService.getContactById(contactId);
-    return {
-      message: 'Contact Fetched Successfully',
-      data: contact,
-    };
+    return contact;
   }
 
   @Post('createContact')
@@ -66,5 +64,33 @@ export class ContactController {
         createContactDto,
       ),
     };
+  }
+
+  @Get('byWorkspace/:workspaceId')
+  async getContactsByWorkspace(
+    @Param('workspaceId') workspaceId: string,
+    @Request() req,
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+  ) {
+    return this.contactService.contactsByWorkspace(
+      workspaceId,
+      req.user,
+      +page,
+      +limit,
+    );
+  }
+
+  @Get('all/byWorkspace/:workspaceId')
+  async getAllContactsByWorkspace(
+    @Param('workspaceId') workspaceId: string,
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+  ) {
+    return this.contactService.allContactsByWorkspace(
+      workspaceId,
+      +page,
+      +limit,
+    );
   }
 }
