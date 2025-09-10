@@ -62,6 +62,40 @@ export class WorkspaceService {
     };
   }
 
+  async getMyWorkspaces(
+    userId: string,
+    page: number,
+    limit: number,
+    order: string,
+  ) {
+    const skip = (page - 1) * limit;
+    const sortOptions: { [key: string]: SortOrder } = {
+      name: order as SortOrder,
+    };
+
+    const query = { createdBy: userId };
+
+    const [data, total] = await Promise.all([
+      this.workspaceModel
+        .find(query)
+        .collation({ locale: 'en', strength: 2 })
+        .populate('createdBy', 'name email')
+        .sort(sortOptions)
+        .skip(skip)
+        .limit(limit)
+        .exec(),
+      this.workspaceModel.countDocuments(query),
+    ]);
+
+    return {
+      data,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    };
+  }
+
   async findOneById(id: string) {
     // 1. Fetch the workspace and populate its creator's details
     const workspace = await this.workspaceModel
