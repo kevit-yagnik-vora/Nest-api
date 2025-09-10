@@ -334,7 +334,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\":\"Demo Workspace 2\",\n    \"description\" : \"this is Demo Workspace updated\"\n}",
+							"raw": "{\n    \"name\":\"Demo Workspace 3\",\n    \"description\" : \"this is Demo Workspace updated\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
