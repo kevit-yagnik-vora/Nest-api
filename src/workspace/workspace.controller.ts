@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import {
   Body,
@@ -26,7 +28,7 @@ export class WorkspaceController {
   constructor(private readonly workspaceService: WorkspaceService) {}
 
   // 1. UPDATED THE ROUTE to match your frontend API call
-  @Get('')
+  @Get('all')
   async getAllWorkspaces(
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 10, // A default of 10 is common
@@ -35,6 +37,18 @@ export class WorkspaceController {
   ) {
     // 3. PASS all parameters to the service. The '+' ensures they are treated as numbers.
     return this.workspaceService.getAllWorkspaces(+page, +limit, order);
+  }
+
+  @UseGuards(AuthGuard) // Protect this route
+  @Get('my')
+  getMyWorkspaces(
+    @Request() req, // Get the full request object
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 6,
+    @Query('order') order: string = 'asc',
+  ) {
+    const userId: any = req.user.userId; // Extract user ID from the JWT payload
+    return this.workspaceService.getMyWorkspaces(userId, +page, +limit, order);
   }
 
   @Post('createWorkspace')
