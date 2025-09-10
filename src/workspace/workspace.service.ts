@@ -136,6 +136,32 @@ export class WorkspaceService {
     return userResult;
   }
 
+  async removeUser(workspaceId: string, userId: string) {
+    // 1. Find the user by their ID
+    const user = await this.userModel.findById(userId).exec();
+    if (!user) {
+      throw new NotFoundException(`User with ID "${userId}" not found.`);
+    }
+
+    // 2. Check if the user is actually in the workspace
+    const workspaceIndex = user.workspaces.findIndex(
+      (ws) => ws.workspaceId.toString() === workspaceId,
+    );
+
+    if (workspaceIndex === -1) {
+      // User is not in the workspace, so there's nothing to do.
+      // We can return a success message as the end state is achieved.
+      return { message: 'User was not in the workspace.' };
+    }
+
+    // 3. Remove the workspace entry from the user's workspaces array
+    user.workspaces.splice(workspaceIndex, 1);
+
+    await user.save();
+
+    return { message: 'User removed from workspace successfully.' };
+  }
+
   async createWorkspace(user: any, createWorkspaceDto: CreateWorkspaceDto) {
     const newWorkspace = new this.workspaceModel({
       ...createWorkspaceDto,

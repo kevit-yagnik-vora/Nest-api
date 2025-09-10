@@ -58,6 +58,14 @@ export class WorkspaceController {
     return this.workspaceService.addUser(workspaceId, addUserDto);
   }
 
+  @Delete(':workspaceId/users/:userId')
+  removeUserFromWorkspace(
+    @Param('workspaceId') workspaceId: string,
+    @Param('userId') userId: string,
+  ) {
+    return this.workspaceService.removeUser(workspaceId, userId);
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return this.workspaceService.findOneById(id);
