@@ -5,6 +5,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   Put,
   Query,
@@ -17,6 +18,7 @@ import { WorkspaceService } from './workspace.service';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { CreateWorkspaceDto } from './dtos/workspace.dto';
 import { AddUserDto } from './dtos/add-user.dto';
+import { UpdateUserRoleDto } from './dtos/update-user-role.dto';
 
 @UseGuards(AuthGuard)
 @Controller('workspace')
@@ -64,6 +66,20 @@ export class WorkspaceController {
     @Param('userId') userId: string,
   ) {
     return this.workspaceService.removeUser(workspaceId, userId);
+  }
+
+  @Patch(':workspaceId/users/:userId')
+  @UsePipes(new ValidationPipe())
+  updateUserRole(
+    @Param('workspaceId') workspaceId: string,
+    @Param('userId') userId: string,
+    @Body() updateUserRoleDto: UpdateUserRoleDto,
+  ) {
+    return this.workspaceService.updateUserRole(
+      workspaceId,
+      userId,
+      updateUserRoleDto,
+    );
   }
 
   @Get(':id')

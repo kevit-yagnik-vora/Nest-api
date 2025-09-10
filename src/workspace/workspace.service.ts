@@ -15,6 +15,7 @@ import { CreateWorkspaceDto } from './dtos/workspace.dto';
 import { User } from 'src/user/schemas/user.schema';
 import { AddUserDto } from './dtos/add-user.dto';
 import * as bcrypt from 'bcrypt';
+import { UpdateUserRoleDto } from './dtos/update-user-role.dto';
 
 @Injectable()
 export class WorkspaceService {
@@ -77,12 +78,25 @@ export class WorkspaceService {
     // This assumes your User schema has a field like:
     // @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Workspace' }] })
     // workspaces: Workspace[];
-    const users = await this.userModel
+    const usersInWorkspace = await this.userModel
       .find({ 'workspaces.workspaceId': id })
-      .select('name email')
+      .select('name email workspaces') // <-- IMPORTANT: Include the 'workspaces' field
       .exec();
-    // 3. Return the combined data
-    return { workspace, users };
+
+    // THE CHANGE: Map the users to include their specific role for THIS workspace
+    const usersWithRoles = usersInWorkspace.map((user) => {
+      const workspaceInfo = user.workspaces.find(
+        (ws) => ws.workspaceId.toString() === id,
+      );
+      return {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        role: workspaceInfo ? workspaceInfo.role : 'N/A', // Add the role
+      };
+    });
+
+    return { workspace, users: usersWithRoles };
   }
 
   async addUser(workspaceId: string, addUserDto: AddUserDto) {
@@ -184,5 +198,30 @@ export class WorkspaceService {
       .exec();
     if (!workspace) throw new NotFoundException('Workspace Not Found');
     return workspace;
+  }
+
+  async updateUserRole(
+    workspaceId: string,
+    userId: string,
+    updateUserRoleDto: UpdateUserRoleDto,
+  ) {
+    const { role } = updateUserRoleDto;
+
+    // Find the user and update the specific sub-document in the workspaces array
+    const updatedUser = await this.userModel
+      .findOneAndUpdate(
+        { _id: userId, 'workspaces.workspaceId': workspaceId },
+        { $set: { 'workspaces.$.role': role } },
+        { new: true }, // Return the updated document
+      )
+      .exec();
+
+    if (!updatedUser) {
+      throw new NotFoundException(
+        `User with ID "${userId}" not found in workspace "${workspaceId}".`,
+      );
+    }
+
+    return { message: 'User role updated successfully.' };
   }
 }
