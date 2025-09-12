@@ -564,7 +564,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\":\"greeting with image 1\",\n    \"type\":\"Text-Image\",\n    \"message\":{\n        \"text\":\"Good Morning new\",\n        \"imageUrl\" : \"https://imgs.search.brave.com/4xc-hwy1t9sYlxXKGs8VDPSsAYl0IokS9u2fQJYzQrY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/aWdwLmNvbS9ibG9n/L3dwLWNvbnRlbnQv/dXBsb2Fkcy8yMDIy/LzExL2dvb2QtbW9y/bmluZy1waWMuanBn\"\n    },\n    \"workspace\":\"68a2df7f22d98f043214bacb\"\n}",
+							"raw": "{\n    \"name\":\"greeting\",\n    \"type\":\"Text\",\n    \"message\":{\n        \"text\":\"Good Morning\"\n    },\n    \"workspace\":\"68b678293dad43d89ee0c74e\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
