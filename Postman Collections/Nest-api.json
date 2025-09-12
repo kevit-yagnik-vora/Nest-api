@@ -543,7 +543,7 @@
 							"mode": "raw",
 							"raw": "{\n    \"name\":\"yagnik vora\",\n    \"phoneNumber\":\"7899874566\",\n    \"tags\":[\"friend\",\"Office\"],\n    \"workspaceId\":\"68a2df7f22d98f043214bacb\"\n}"
 						},
-						"url": "{{URL}}/message-template/getAllMessageTemplates"
+						"url": "{{URL}}/message-template/"
 					},
 					"response": []
 				},
@@ -564,7 +564,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\":\"yagnik vora\",\n    \"type\":\"Text\",\n    \"message\":{\n        \"text\":\"Good Morning\"\n    },\n    \"workspaceId\":\"68a2df7f22d98f043214bacb\"\n}",
+							"raw": "{\n    \"name\":\"greeting with image\",\n    \"type\":\"Text-Image\",\n    \"message\":{\n        \"text\":\"Good Morning\",\n        \"imageUrl\" : \n    },\n    \"workspaceId\":\"68a2df7f22d98f043214bacb\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
