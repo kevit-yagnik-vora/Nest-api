@@ -668,7 +668,7 @@
 							"mode": "raw",
 							"raw": "{\n    \"refreshToken\":\"e68a508c36c59aa75d0e3d2ffcf8ace6eaa3113b4185165a7fccc13848deed73f244b495d8684c4c\"\n}"
 						},
-						"url": "{{URL}}/message-template/byWorkspace/68b678293dad43d89ee0c74e"
+						"url": "{{URL}}/message-template/byWorkspace/68b7d2f7c0f4c445812d54d5"
 					},
 					"response": []
 				}
