@@ -7,6 +7,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   Request,
   UseGuards,
 } from '@nestjs/common';
@@ -63,5 +64,20 @@ export class MessageTemplateController {
       message: 'Message Template updated successfully',
       data: messageTemplate,
     };
+  }
+
+  @Get('byWorkspace/:workspaceId')
+  getContactsByWorkspace(
+    @Param('workspaceId') workspaceId: string,
+    @Request() req,
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+  ) {
+    return this.messageTemplateService.getMessageTemplatesByWorkspace(
+      workspaceId,
+      req.user,
+      +page,
+      +limit,
+    );
   }
 }

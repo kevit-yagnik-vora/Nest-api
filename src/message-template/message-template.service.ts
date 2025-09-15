@@ -51,4 +51,36 @@ export class MessageTemplateService {
       throw new NotFoundException('Message Template Not Found');
     return messageTemplate;
   }
+
+  async getMessageTemplatesByWorkspace(
+    workspaceId: string,
+    user: any,
+    page = 1,
+    limit = 10,
+  ) {
+    const skip = (page - 1) * limit;
+
+    const [messageTemplates, total] = await Promise.all([
+      this.messageTemplateModel
+        .find({ workspace: workspaceId, createdBy: user.userId })
+        .populate('workspace', '_id name createdBy description')
+        .skip(skip)
+        .limit(limit)
+        .exec(),
+      this.messageTemplateModel.countDocuments({
+        workspace: workspaceId,
+        createdBy: user.userId,
+      }),
+    ]);
+
+    return {
+      data: messageTemplates,
+      pagination: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      },
+    };
+  }
 }
