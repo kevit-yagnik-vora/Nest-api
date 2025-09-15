@@ -24,7 +24,7 @@ export class MessageTemplate {
   };
 
   @Prop({ type: Types.ObjectId, ref: 'Workspace', required: true })
-  workspaceId: Types.ObjectId;
+  workspace: Types.ObjectId;
 
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
   createdBy: Types.ObjectId;

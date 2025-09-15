@@ -18,11 +18,17 @@ export class MessageTemplateService {
   ) {}
 
   async getAllMessageTemplates() {
-    return this.messageTemplateModel.find().exec();
+    return this.messageTemplateModel
+      .find()
+      .populate('workspace', '_id name createdBy description') // Selects only these fields
+      .exec();
   }
 
   async getMessageTemplateById(id: string) {
-    return this.messageTemplateModel.findById(id).exec();
+    return this.messageTemplateModel
+      .findById(id)
+      .populate('workspace', '_id name createdBy description')
+      .exec();
   }
 
   async createMessageTemplate(user: any, data: CreateMessageTemplateDto) {

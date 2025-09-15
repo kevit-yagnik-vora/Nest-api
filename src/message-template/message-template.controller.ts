@@ -19,25 +19,19 @@ import { UpdateMessageTemplateDto } from './dtos/update-message-template.dto';
 @Controller('message-template')
 export class MessageTemplateController {
   constructor(private messageTemplateService: MessageTemplateService) {}
-  @Get('getAllMessageTemplates')
+  @Get('')
   async getAllMessageTemplates() {
     const data = await this.messageTemplateService.getAllMessageTemplates();
-    return {
-      message: 'Message Template fetched successfully',
-      data,
-    };
+    return data;
   }
 
   @Get(':id')
   async getMessageTemplateById(@Param('id') id: string) {
     const data = await this.messageTemplateService.getMessageTemplateById(id);
-    return {
-      message: 'Message Template fetched successfully',
-      data,
-    };
+    return data;
   }
 
-  @Post('createMessageTemplate')
+  @Post('')
   async createMessageTemplate(
     @Request() req,
     @Body() data: CreateMessageTemplateDto,

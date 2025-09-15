@@ -34,5 +34,5 @@ export class CreateMessageTemplateDto {
 
   @IsMongoId()
   @IsNotEmpty()
-  workspaceId: string;
+  workspace: string;
 }
