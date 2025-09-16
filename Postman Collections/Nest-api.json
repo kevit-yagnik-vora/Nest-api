@@ -747,13 +747,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODljNWI2N2IxODFmMmMxYTJiNWQ2MjAiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbXSwiaWF0IjoxNzU1NTc4MzM0LCJleHAiOjE3NTU2NjQ3MzR9.adFrnaKehdf2UZkDipPy5mayGbMBJ2QyHvKpgUFOlkk",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGI2NzVlMzgxODJjOTUzYTZkMWM3YzYiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbeyJ3b3Jrc3BhY2VJZCI6IjY4YjY3ODI5M2RhZDQzZDg5ZWUwYzc0ZSIsInJvbGUiOiJWaWV3ZXIiLCJfaWQiOiI2OGMxNjRmYjRhMjgyYTY3OTExZTc2ZjIifSx7IndvcmtzcGFjZUlkIjoiNjhiN2QyZjdjMGY0YzQ0NTgxMmQ1NGQ1Iiwicm9sZSI6IkVkaXRvciIsIl9pZCI6IjY4YzNiMjkxN2RhMDM1M2RmMDkxMjIxOSJ9XSwiaWF0IjoxNzU3OTk2NDk4LCJleHAiOjE3NTg0Mjg0OTh9.Gr30AmQRfgLf3BxPasTx78jhK28B52eyP33BhrVX8aw",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"demo campaign 2\",\n    \"description\": \"This is demo campaign\",\n    \"status\": \"Draft\",\n    \"message\": {\n        \"text\": \"demo text\"\n    },\n    \"selectedTags\":[\"demo\",\"friend\"],\n    \"launchedAt\": \"11-12-2004\",\n    \"workspaceId\": \"689325b89d0e24d15bdfa543\"\n}",
+							"raw": "{\n    \"name\": \"demo campaign 25874\",\n    \"description\": \"This is demo campaign\",\n    \"status\": \"Draft\",\n    \"message\": {\n        \"text\": \"demo text\"\n    },\n    \"selectedTags\":[\"demo\",\"friend\"],\n    \"launchedAt\": \"11-12-2004\",\n    \"workspace\": \"68b675e38182c953a6d1c7c6\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
