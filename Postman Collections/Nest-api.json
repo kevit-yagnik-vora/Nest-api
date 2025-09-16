@@ -833,6 +833,18 @@
 						"url": "{{URL}}/campaign/68a4000d8f4ea1fae1af27d4"
 					},
 					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "c86f6f26-8497-4b0f-9df6-560da843a846",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			],
 			"id": "ce439db2-c6f4-45e6-a38e-6cfc802abb72"
