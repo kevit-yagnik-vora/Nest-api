@@ -853,21 +853,7 @@
 							"mode": "raw",
 							"raw": "{\n    \"name\": \"demo campaign workspace 2\",\n    \"description\": \"This is demo campaign\",\n    \"status\": \"Draft\",\n    \"message\": {\n        \"text\": \"demo text\"\n    },\n    \"selectedTags\":[\"demo\",\"friend\"],\n    \"launchedAt\": \"11-12-2004\",\n    \"workspace\": \"68b7d2f7c0f4c445812d54d5\"\n}"
 						},
-						"url": {
-							"raw": "{{URL}}/campaign?workspaceId=",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"campaign"
-							],
-							"query": [
-								{
-									"key": "workspaceId",
-									"value": ""
-								}
-							]
-						}
+						"url": "{{URL}}/campaigns/byWorkspace/689325b89d0e24d15bdfa543"
 					},
 					"response": []
 				}
