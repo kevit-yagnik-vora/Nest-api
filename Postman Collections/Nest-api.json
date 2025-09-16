@@ -344,6 +344,18 @@
 						"url": "{{URL}}/workspace/68b7d301c0f4c445812d54d7"
 					},
 					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "8635fa7c-d698-418a-8685-f030733f5ddf",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			],
 			"id": "2943e861-84ef-4bae-9e4c-fcd1aeb1de0b"
@@ -669,6 +681,29 @@
 							"raw": "{\n    \"refreshToken\":\"e68a508c36c59aa75d0e3d2ffcf8ace6eaa3113b4185165a7fccc13848deed73f244b495d8684c4c\"\n}"
 						},
 						"url": "{{URL}}/message-template/byWorkspace/68b7d2f7c0f4c445812d54d5"
+					},
+					"response": []
+				},
+				{
+					"name": "getAllByWorkspace",
+					"id": "0e0ddab1-8791-4201-8fa9-257a202a557b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGI2NzVlMzgxODJjOTUzYTZkMWM3YzYiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbeyJ3b3Jrc3BhY2VJZCI6IjY4YjY3ODI5M2RhZDQzZDg5ZWUwYzc0ZSIsInJvbGUiOiJFZGl0b3IiLCJfaWQiOiI2OGI3ZDM2MGMwZjRjNDQ1ODEyZDU0ZDkifSx7IndvcmtzcGFjZUlkIjoiNjhiN2QyZjdjMGY0YzQ0NTgxMmQ1NGQ1Iiwicm9sZSI6IkVkaXRvciIsIl9pZCI6IjY4YjdkMzYwYzBmNGM0NDU4MTJkNTRkYSJ9LHsid29ya3NwYWNlSWQiOiI2OGI3ZDMwMWMwZjRjNDQ1ODEyZDU0ZDciLCJyb2xlIjoiVmlld2VyIiwiX2lkIjoiNjhiN2QzNjBjMGY0YzQ0NTgxMmQ1NGRiIn1dLCJpYXQiOjE3NTc0MDE0MjEsImV4cCI6MTc1NzgzMzQyMX0.MF1ffIVqcRbXulCzAvP-Rz4NLqex3QhegCz1mBHE1hQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\":\"e68a508c36c59aa75d0e3d2ffcf8ace6eaa3113b4185165a7fccc13848deed73f244b495d8684c4c\"\n}"
+						},
+						"url": "{{URL}}/message-template/all/byWorkspace/68b7d2f7c0f4c445812d54d5"
 					},
 					"response": []
 				}
