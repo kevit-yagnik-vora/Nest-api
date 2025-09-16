@@ -49,5 +49,5 @@ export class CreateCampaignDto {
 
   @IsMongoId()
   @IsNotEmpty()
-  workspaceId: string;
+  workspace: string;
 }

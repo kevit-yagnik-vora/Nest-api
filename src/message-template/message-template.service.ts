@@ -83,4 +83,34 @@ export class MessageTemplateService {
       },
     };
   }
+
+  async getAllMessageTemplatesByWorkspace(
+    workspaceId: string,
+    page = 1,
+    limit = 10,
+  ) {
+    const skip = (page - 1) * limit;
+
+    const [messageTemplates, total] = await Promise.all([
+      this.messageTemplateModel
+        .find({ workspace: workspaceId })
+        .populate('workspace', '_id name createdBy description')
+        .skip(skip)
+        .limit(limit)
+        .exec(),
+      this.messageTemplateModel.countDocuments({
+        workspace: workspaceId,
+      }),
+    ]);
+
+    return {
+      data: messageTemplates,
+      pagination: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      },
+    };
+  }
 }
