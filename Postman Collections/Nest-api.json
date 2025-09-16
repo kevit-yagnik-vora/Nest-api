@@ -529,6 +529,44 @@
 						"url": "{{URL}}/contact/all/byWorkspace/68b7d301c0f4c445812d54d7"
 					},
 					"response": []
+				},
+				{
+					"name": "countContacts",
+					"id": "3fe93a92-d1a7-4c9c-94aa-2926a9979c0f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/contact/count?workspaceId=68b7d2f7c0f4c445812d54d5&tags=demo",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"contact",
+								"count"
+							],
+							"query": [
+								{
+									"key": "workspaceId",
+									"value": "68b7d2f7c0f4c445812d54d5"
+								},
+								{
+									"key": "tags",
+									"value": "demo"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"id": "e0f62f78-3355-4551-a670-233b8236581e"
