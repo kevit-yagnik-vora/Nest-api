@@ -835,14 +835,39 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "getAllCampaignByWorkspaceId",
 					"id": "c86f6f26-8497-4b0f-9df6-560da843a846",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGI2NzVlMzgxODJjOTUzYTZkMWM3YzYiLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwibmFtZSI6ImRlbW8iLCJwaG9uZU51bWJlciI6IjEwMTAxMDEwMTAiLCJ3b3Jrc3BhY2VzIjpbeyJ3b3Jrc3BhY2VJZCI6IjY4YjY3ODI5M2RhZDQzZDg5ZWUwYzc0ZSIsInJvbGUiOiJWaWV3ZXIiLCJfaWQiOiI2OGMxNjRmYjRhMjgyYTY3OTExZTc2ZjIifSx7IndvcmtzcGFjZUlkIjoiNjhiN2QyZjdjMGY0YzQ0NTgxMmQ1NGQ1Iiwicm9sZSI6IkVkaXRvciIsIl9pZCI6IjY4YzNiMjkxN2RhMDM1M2RmMDkxMjIxOSJ9XSwiaWF0IjoxNzU3OTk2NDk4LCJleHAiOjE3NTg0Mjg0OTh9.Gr30AmQRfgLf3BxPasTx78jhK28B52eyP33BhrVX8aw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"demo campaign workspace 2\",\n    \"description\": \"This is demo campaign\",\n    \"status\": \"Draft\",\n    \"message\": {\n        \"text\": \"demo text\"\n    },\n    \"selectedTags\":[\"demo\",\"friend\"],\n    \"launchedAt\": \"11-12-2004\",\n    \"workspace\": \"68b7d2f7c0f4c445812d54d5\"\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/campaign?workspaceId=",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"campaign"
+							],
+							"query": [
+								{
+									"key": "workspaceId",
+									"value": ""
+								}
+							]
+						}
 					},
 					"response": []
 				}
