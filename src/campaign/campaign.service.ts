@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
@@ -15,6 +16,7 @@ import {
   CampaignMessageDocument,
 } from './schemas/campaign-message.schema';
 import { Contact, ContactDocument } from 'src/contact/schemas/contact.schema';
+
 import {
   CreateCampaignDto,
   UpdateCampaignDto,
@@ -33,7 +35,6 @@ export class CampaignService {
 
   /** Create a new campaign */
   async create(dto: CreateCampaignDto, req: any) {
-    console.log(req.user);
     const campaign = new this.campaignModel({
       ...dto,
       status: 'Draft',
@@ -95,87 +96,79 @@ export class CampaignService {
   }
 
   /** Copy campaign */
-  async copy(id, userId) {
+  async copy(id, req) {
     const source = await this.campaignModel.findById(id).lean();
     if (!source) throw new NotFoundException();
     const clone = {
       ...source,
-      _id: undefined,
       status: 'Draft',
-      createdBy: userId,
-      createdAt: undefined,
-      updatedAt: undefined,
-      launchedAt: undefined,
+      createdBy: req.user.userId,
       name: source.name + ' (Copy)',
     };
-    const { __v, ...rest } = clone; // Remove __v property
+    const { __v, _id, ...rest } = clone; // Remove __v property
     return this.campaignModel.create(rest);
   }
 
   /** Launch campaign: Draft → Running → Completed */
-  async launch(id: string) {
-    const campaign = await this.campaignModel.findById(id);
+  async launch(campaignId: string, userId: string) {
+    const campaign = await this.campaignModel.findById(campaignId);
     if (!campaign) throw new NotFoundException('Campaign not found');
-    if (campaign.status !== 'Draft') {
-      throw new BadRequestException('Only Draft campaigns can be launched');
-    }
 
-    // find contacts with matching tags in same workspace
+    // update status → Running
+    campaign.status = 'Running';
+    await campaign.save();
+
+    // fetch contacts by campaign tags
     const contacts = await this.contactModel.find({
       workspaceId: campaign.workspace,
+      createdBy: campaign.createdBy,
       tags: { $in: campaign.selectedTags || [] },
     });
 
-    // update campaign to Running
-    campaign.status = 'Running';
-    campaign.launchedAt = new Date();
-    await campaign.save();
+    if (!contacts.length) {
+      campaign.status = 'Completed';
+      await campaign.save();
+      return { message: 'No contacts found, campaign completed immediately' };
+    }
 
-    // create campaign message docs (snapshots)
-    const messages = contacts.map((c) => ({
-      campaign: campaign._id,
-      contact: c._id,
-      contactSnapshot: {
-        name: c.name,
-        phoneNumber: c.phoneNumber,
-        tags: c.tags,
-        originalId: c._id,
-      },
-      messageSnapshot: {
-        text: campaign.message.text,
-        imageUrl: campaign.message.imageUrl,
-      },
-      status: 'Pending',
-    }));
-    const createdMessages =
-      await this.campaignMessageModel.insertMany(messages);
+    let i = 0;
+    const interval = setInterval(async () => {
+      if (i >= contacts.length) {
+        clearInterval(interval);
 
-    // simulate sending asynchronously
-    void (async () => {
-      for (const cm of createdMessages) {
-        try {
-          await new Promise((r) => setTimeout(r, 150)); // simulate send delay
-          await this.campaignMessageModel.findByIdAndUpdate(cm._id, {
-            status: 'Sent',
-            sentAt: new Date(),
-          });
-        } catch (err) {
-          await this.campaignMessageModel.findByIdAndUpdate(cm._id, {
-            status: 'Failed',
-            error: String(err),
-          });
-        }
+        // mark campaign completed
+        campaign.status = 'Completed';
+        await campaign.save();
+        return;
       }
-      await this.campaignModel.findByIdAndUpdate(campaign._id, {
-        status: 'Completed',
-      });
-    })();
 
-    return {
-      message: 'Campaign launched',
-      totalRecipients: contacts.length,
-      campaignId: campaign._id,
-    };
+      const c = contacts[i];
+
+      await this.campaignMessageModel.create({
+        campaign: campaign._id, // required ref
+        contact: c._id, // required ref
+        workspaceId: campaign.workspace,
+        status: 'Pending',
+        createdBy: userId,
+
+        // take snapshot of message template at launch time
+        messageSnapshot: {
+          text: campaign.message?.text || '',
+          imageUrl: campaign.message?.imageUrl || '',
+        },
+
+        // take snapshot of contact at launch time
+        contactSnapshot: {
+          name: c.name,
+          phoneNumber: c.phoneNumber,
+          tags: c.tags,
+        },
+      });
+
+      i++;
+    }, 1000);
+
+    return { message: 'Campaign launched, messages are being inserted' };
   }
 
   /** Get campaign messages (paginated) */
@@ -233,5 +226,24 @@ export class CampaignService {
     };
     counts.forEach((c) => (result.messageStats[c._id] = c.count));
     return result;
+  }
+
+  async getCampaignDetails(campaignId: string) {
+    const campaign = await this.campaignModel.findById(campaignId);
+    if (!campaign) throw new NotFoundException('Campaign not found');
+
+    const targetedContacts = await this.campaignMessageModel
+      .find({ campaignId: new Types.ObjectId(campaignId) })
+      .populate('contactId', 'name email phoneNumber tags');
+
+    return { campaign, targetedContacts };
+  }
+
+  async getCampaignMessages(campaignId: string): Promise<any[]> {
+    return this.campaignMessageModel
+      .find({ campaign: new Types.ObjectId(campaignId) })
+      .select('contactSnapshot messageSnapshot status createdAt')
+      .lean()
+      .exec();
   }
 }
