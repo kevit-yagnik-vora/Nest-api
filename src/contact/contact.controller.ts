@@ -14,11 +14,17 @@ import {
 import { ContactService } from './contact.service';
 import { CreateContactDto } from './dtos/create-contact.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { Contact, ContactDocument } from './schemas/contact.schema';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
 
 @UseGuards(AuthGuard)
 @Controller('contact')
 export class ContactController {
-  constructor(private contactService: ContactService) {}
+  constructor(
+    private contactService: ContactService,
+    @InjectModel(Contact.name) private contactModel: Model<ContactDocument>,
+  ) {}
 
   @Get('getAllContacts')
   async getAllContacts() {
@@ -28,10 +34,26 @@ export class ContactController {
     };
   }
 
-  @Get(':contactId')
-  async getContact(@Param('contactId') contactId: string) {
-    const contact = await this.contactService.getContactById(contactId);
-    return contact;
+  // 👇 fixed route
+  @Get('count')
+  async count(
+    @Query('workspaceId') workspaceId: string,
+    @Query('tags') tagsCsv?: string,
+  ) {
+    const tags = tagsCsv
+      ? tagsCsv
+          .split(',')
+          .map((s) => s.trim())
+          .filter(Boolean)
+      : [];
+
+    console.log(tags);
+
+    const filter: any = { workspaceId };
+    if (tags.length) filter.tags = { $in: tags };
+
+    const count = await this.contactService.countContacts(filter);
+    return { count };
   }
 
   @Post('createContact')
@@ -42,27 +64,6 @@ export class ContactController {
     return {
       message: 'Contact Created Successfully',
       data: await this.contactService.createContact(req.user, createContactDto),
-    };
-  }
-
-  @Delete(':contactId')
-  async deleteContact(@Param('contactId') contactId: string) {
-    return {
-      message: 'Contact Deleted Successfully',
-      data: await this.contactService.deleteContact(contactId),
-    };
-  }
-  @Put(':contactId')
-  async updateContact(
-    @Param('contactId') contactId: string,
-    @Body() createContactDto: CreateContactDto,
-  ) {
-    return {
-      message: 'Contact Updated Successfully',
-      data: await this.contactService.updateContact(
-        contactId,
-        createContactDto,
-      ),
     };
   }
 
@@ -92,5 +93,39 @@ export class ContactController {
       +page,
       +limit,
     );
+  }
+
+  @Delete(':contactId')
+  async deleteContact(@Param('contactId') contactId: string) {
+    return {
+      message: 'Contact Deleted Successfully',
+      data: await this.contactService.deleteContact(contactId),
+    };
+  }
+
+  @Put(':contactId')
+  async updateContact(
+    @Param('contactId') contactId: string,
+    @Body() createContactDto: CreateContactDto,
+  ) {
+    return {
+      message: 'Contact Updated Successfully',
+      data: await this.contactService.updateContact(
+        contactId,
+        createContactDto,
+      ),
+    };
+  }
+
+  // 👇 dynamic routes must be LAST
+  @Get(':contactId')
+  async getContact(@Param('contactId') contactId: string) {
+    const contact = await this.contactService.getContactById(contactId);
+    return contact;
+  }
+
+  @Get(':id')
+  async getContactById(@Param('id') id: string) {
+    return this.contactService.getContactById(id);
   }
 }

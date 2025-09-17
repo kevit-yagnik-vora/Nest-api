@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Injectable, NotFoundException } from '@nestjs/common';
@@ -99,5 +100,9 @@ export class ContactService {
         totalPages: Math.ceil(total / limit),
       },
     };
+  }
+
+  async countContacts(filter: any): Promise<number> {
+    return this.contactModel.countDocuments(filter).exec();
   }
 }

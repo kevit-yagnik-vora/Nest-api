@@ -4,50 +4,37 @@ import {
   IsOptional,
   IsMongoId,
   IsArray,
-  IsIn,
   ValidateNested,
-  IsDate,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
-class CampaignMessageDto {
+export class MessageDto {
   @IsString()
-  @IsNotEmpty()
   text: string;
 
-  @IsString()
   @IsOptional()
+  @IsString()
   imageUrl?: string;
 }
-
+// dto/create-campaign.dto.ts
 export class CreateCampaignDto {
-  @IsString()
-  @IsNotEmpty()
-  name: string;
+  @IsString() @IsNotEmpty() name: string;
+  @IsString() @IsOptional() description?: string;
+  @IsArray() @IsOptional() selectedTags?: string[]; // tags used to select contacts
+  @ValidateNested() @Type(() => MessageDto) message: {
+    text: string;
+    imageUrl?: string;
+  };
+  @IsMongoId() @IsNotEmpty() workspace: string;
+}
 
-  @IsString()
-  @IsOptional()
-  description?: string;
-
-  @IsString()
-  @IsIn(['Draft', 'Running', 'Completed'])
-  @IsOptional()
-  status?: 'Draft' | 'Running' | 'Completed';
-
-  @IsArray()
-  @IsOptional()
-  selectedTags?: string[];
-
-  @ValidateNested()
-  @Type(() => CampaignMessageDto)
-  message: CampaignMessageDto;
-
-  @IsDate()
-  @IsOptional()
-  @Type(() => Date)
-  launchedAt?: Date;
-
-  @IsMongoId()
-  @IsNotEmpty()
-  workspace: string;
+// dto/update-campaign.dto.ts
+export class UpdateCampaignDto {
+  @IsString() @IsOptional() name?: string;
+  @IsString() @IsOptional() description?: string;
+  @IsArray() @IsOptional() selectedTags?: string[];
+  @ValidateNested() @Type(() => MessageDto) @IsOptional() message?: {
+    text: string;
+    imageUrl?: string;
+  };
 }

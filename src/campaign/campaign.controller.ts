@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import {
   Body,
@@ -7,6 +8,8 @@ import {
   Param,
   Post,
   Put,
+  Query,
+  Req,
   Request,
   UseGuards,
 } from '@nestjs/common';
@@ -16,50 +19,63 @@ import { AuthGuard } from 'src/auth/auth.guard';
 import { UpdateCampaignDto } from './dtos/update-campaign.dto';
 
 @UseGuards(AuthGuard)
-@Controller('campaign')
+// campaigns.controller.ts (strip-down)
+@Controller('campaigns')
 export class CampaignController {
-  constructor(private campaignService: CampaignService) {}
+  constructor(private readonly svc: CampaignService) {}
 
-  @Get('getAllCampaigns')
-  async getAllCampaigns() {
-    return {
-      message: 'Campaign Fetched Successfully',
-      data: await this.campaignService.getAllCampaigns(),
-    };
-  }
-
-  @Get(':campaignId')
-  async getCampaignById(@Param('campaignId') id: string) {
-    return {
-      message: 'Campaign Fetched Successfully',
-      data: await this.campaignService.getCampaignById(id),
-    };
-  }
-
-  @Post('createCampaign')
-  async createCampaign(@Request() req: any, @Body() data: CreateCampaignDto) {
-    return {
-      message: 'Campaign Created Successfully',
-      data: await this.campaignService.createCampaign(req.user, data),
-    };
-  }
-
-  @Delete(':campaignId')
-  async deleteCampaign(@Param('campaignId') id: string) {
-    return {
-      message: 'Campaign Deleted Successfully',
-      data: await this.campaignService.deleteCampaign(id),
-    };
-  }
-
-  @Put(':campaignId')
-  async updateCampaign(
-    @Param('campaignId') id: string,
-    @Body() data: UpdateCampaignDto,
+  @Get('byWorkspace/:workspaceId')
+  findByWorkspace(
+    @Param('workspaceId') workspaceId: string,
+    @Query('page') page = 1,
+    @Query('limit') limit = 10,
   ) {
-    return {
-      message: 'Campaign Updated Successfully',
-      data: await this.campaignService.updateCampaign(id, data),
-    };
+    return this.svc.findByWorkspace(workspaceId, +page, +limit);
+  }
+
+  @Get(':id')
+  get(@Param('id') id: string) {
+    return this.svc.getById(id);
+  }
+
+  @Post()
+  create(@Body() dto: CreateCampaignDto, @Req() req) {
+    // set createdBy from auth if available
+    dto['createdBy'] = req.user._id;
+    return this.svc.create(dto, req);
+  }
+
+  @Put(':id')
+  update(@Param('id') id: string, @Body() dto: UpdateCampaignDto) {
+    return this.svc.update(id, dto);
+  }
+
+  @Delete(':id')
+  delete(@Param('id') id: string) {
+    return this.svc.delete(id);
+  }
+
+  @Post(':id/copy')
+  copy(@Param('id') id: string, @Req() req) {
+    return this.svc.copy(id, req.user?._id);
+  }
+
+  @Post(':id/launch')
+  launch(@Param('id') id: string) {
+    return this.svc.launch(id); // triggers background processing
+  }
+
+  // @Get(':id/messages')
+  // messages(
+  //   @Param('id') id: string,
+  //   @Query('page') page = 1,
+  //   @Query('limit') limit = 20,
+  // ) {
+  //   return this.svc.getMessages(id, +page, +limit);
+  // }
+
+  @Get(':id/summary')
+  summary(@Param('id') id: string) {
+    return this.svc.getSummary(id);
   }
 }
