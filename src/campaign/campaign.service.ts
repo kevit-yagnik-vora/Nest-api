@@ -116,6 +116,8 @@ export class CampaignService {
 
     // update status → Running
     campaign.status = 'Running';
+    campaign.launchedAt = new Date();
+
     await campaign.save();
 
     // fetch contacts by campaign tags
@@ -138,6 +140,7 @@ export class CampaignService {
 
         // mark campaign completed
         campaign.status = 'Completed';
+
         await campaign.save();
         return;
       }
@@ -243,6 +246,68 @@ export class CampaignService {
     return this.campaignMessageModel
       .find({ campaign: new Types.ObjectId(campaignId) })
       .select('contactSnapshot messageSnapshot status createdAt')
+      .lean()
+      .exec();
+  }
+
+  private sleep(ms: number) {
+    return new Promise((res) => setTimeout(res, ms));
+  }
+
+  // Launch campaign: create one CampaignMessage doc and append to sentMessages[] at 1s interval
+  async launchCampaign(campaignId: string) {
+    const campaign = await this.campaignModel.findById(campaignId);
+    if (!campaign) throw new NotFoundException('Campaign not found');
+
+    // 🎯 Fetch targeted contacts by tags
+    const contacts = await this.contactModel.find({
+      workspaceId: campaign.workspace,
+      tags: { $in: campaign.selectedTags },
+    });
+
+    // Create campaign message document with empty sentMessages[]
+    const campaignMessage = await this.campaignMessageModel.create({
+      campaign: campaign._id,
+      messageSnapshot: {
+        text: campaign.message.text,
+        imageUrl: campaign.message.imageUrl,
+      },
+      sentMessages: [], // initially empty
+    });
+
+    // Process contacts one by one (simulate sending with delay)
+    for (const contact of contacts) {
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // ⏱️ 1 sec delay
+
+      await this.campaignMessageModel.findByIdAndUpdate(
+        campaignMessage._id,
+        {
+          $push: {
+            sentMessages: {
+              name: contact.name,
+              phoneNumber: contact.phoneNumber,
+              status: 'SENT',
+              sentAt: new Date(),
+            },
+          },
+        },
+        { new: true },
+      );
+    }
+
+    // ✅ Update campaign status after sending all
+    campaign.status = 'Completed';
+    campaign.launchedAt = new Date();
+    await campaign.save();
+
+    return { success: true, campaignId: campaign._id };
+  }
+
+  async getCampaignMessageForCampaign(campaignId: string): Promise<any> {
+    return this.campaignMessageModel
+      .findOne({ campaign: new Types.ObjectId(campaignId) })
+      .select('campaign messageSnapshot sentMessages createdAt updatedAt')
+      .populate('campaign')
       .lean()
       .exec();
   }

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import {
@@ -61,15 +61,16 @@ export class CampaignController {
     return this.svc.copy(id, req);
   }
 
-  @Post(':id/launch')
-  launch(@Param('id') id: string, @Req() req) {
-    return this.svc.launch(id, req.user.userId); // triggers background processing
-  }
+  // @Post(':id/launch')
+  // launch(@Param('id') id: string, @Req() req) {
+  //   return this.svc.launch(id, req.user.userId); // triggers background processing
+  // }
 
-  @Get(':id/messages')
-  async getCampaignMessages(@Param('id') id: string) {
-    return this.svc.getCampaignMessages(id);
-  }
+  // @Get(':id/messages')
+  // async getCampaignMessages(@Param('id') id: string) {
+  //   return this.svc.getCampaignMessages(id);
+  // }
+
   @Get(':id/details')
   async getCampaignDetails(@Param('id') campaignId: string) {
     return this.svc.getCampaignDetails(campaignId);
@@ -78,5 +79,15 @@ export class CampaignController {
   @Get(':id/summary')
   summary(@Param('id') id: string) {
     return this.svc.getSummary(id);
+  }
+
+  @Post(':id/launch')
+  async launch(@Param('id') id: string) {
+    return this.svc.launchCampaign(id);
+  }
+
+  @Get(':id/messages')
+  async getMessages(@Param('id') id: string) {
+    return this.svc.getCampaignMessageForCampaign(id);
   }
 }
