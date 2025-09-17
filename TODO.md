@@ -1,0 +1,2 @@
+- [ ] Update launch method in campaign.service.ts to use correct schema properties (campaign, contact, messageSnapshot, contactSnapshot)
+- [ ] Update getCampaignDetails method to use correct query and access snapshot properties instead of populated contactId and message
