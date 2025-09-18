@@ -41,20 +41,6 @@ export class Campaign {
 
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
   createdBy: Types.ObjectId;
-
-  @Prop({
-    type: [
-      {
-        contactId: { type: Types.ObjectId, ref: 'Contact' },
-        sentAt: { type: Date, default: Date.now },
-      },
-    ],
-    default: [],
-  })
-  messages: {
-    contactId: Types.ObjectId;
-    sentAt: Date;
-  }[];
 }
 
 export const CampaignSchema = SchemaFactory.createForClass(Campaign);

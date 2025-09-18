@@ -1,35 +1,14 @@
-// backend/schemas/campaign-message.schema.ts
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Types } from 'mongoose';
+import { Document, Types } from 'mongoose';
 
 export type CampaignMessageDocument = CampaignMessage & Document;
 
 @Schema({ timestamps: true })
 export class CampaignMessage {
-  @Prop({ type: Types.ObjectId, ref: 'Campaign', required: true })
-  campaign: Types.ObjectId;
+  @Prop({ type: Types.ObjectId, ref: 'Campaign', required: true, unique: true })
+  campaign: Types.ObjectId; // one doc per campaign
 
-  @Prop({ type: Types.ObjectId, ref: 'Contact', required: true })
-  contact: Types.ObjectId;
-
-  // snapshot of contact at send time
-  @Prop({
-    type: {
-      name: String,
-      phoneNumber: String,
-      tags: [String],
-      originalId: Types.ObjectId,
-    },
-    required: true,
-  })
-  contactSnapshot: {
-    name: string;
-    phoneNumber: string;
-    tags: string[];
-    originalId: Types.ObjectId;
-  };
-
-  // snapshot of message (copied from campaign.message or template)
+  // snapshot of the message at launch time
   @Prop({
     type: {
       text: { type: String, required: true },
@@ -42,24 +21,28 @@ export class CampaignMessage {
     imageUrl?: string;
   };
 
+  // list of per-contact send records
   @Prop({
-    type: String,
-    enum: ['Pending', 'Sent', 'Failed'],
-    default: 'Pending',
+    type: [
+      {
+        contactId: { type: Types.ObjectId, ref: 'Contact' },
+        name: { type: String, required: true },
+        phoneNumber: { type: String, required: true },
+        status: { type: String, default: 'Pending' }, // Pending | Sent | Failed
+        sentAt: { type: Date },
+      },
+    ],
+    default: [],
   })
-  status: 'Pending' | 'Sent' | 'Failed';
-
-  @Prop()
-  error?: string;
-
-  @Prop()
-  sentAt?: Date;
+  sentMessages: {
+    contactId?: Types.ObjectId;
+    name: string;
+    phoneNumber: string;
+    status?: string;
+    sentAt?: Date;
+  }[];
 }
 
 export const CampaignMessageSchema =
   SchemaFactory.createForClass(CampaignMessage);
-
-// Indexes
-CampaignMessageSchema.index({ campaign: 1 });
-CampaignMessageSchema.index({ contact: 1 });
-CampaignMessageSchema.index({ status: 1 });
+CampaignMessageSchema.index({ campaign: 1 }, { unique: true }); // ensure one per campaign
