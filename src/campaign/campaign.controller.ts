@@ -36,7 +36,7 @@ export class CampaignController {
 
   @Get(':id')
   get(@Param('id') id: string) {
-    return this.svc.getById(id);
+    return this.svc.getCampaignById(id);
   }
 
   @Post()

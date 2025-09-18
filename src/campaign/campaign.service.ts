@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
@@ -67,10 +67,8 @@ export class CampaignService {
   }
 
   /** Get campaign by ID */
-  async getById(id: string) {
-    const campaign = await this.campaignModel.findById(id).lean();
-    if (!campaign) throw new NotFoundException('Campaign not found');
-    return campaign;
+  async getCampaignById(id: string) {
+    return this.campaignModel.findById(id).lean();
   }
 
   /** List campaigns by workspace (paginated) */
@@ -104,75 +102,79 @@ export class CampaignService {
       status: 'Draft',
       createdBy: req.user.userId,
       name: source.name + ' (Copy)',
+      launchedAt: undefined,
     };
     const { __v, _id, ...rest } = clone; // Remove __v property
     return this.campaignModel.create(rest);
   }
 
   /** Launch campaign: Draft → Running → Completed */
-  async launch(campaignId: string, userId: string) {
-    const campaign = await this.campaignModel.findById(campaignId);
-    if (!campaign) throw new NotFoundException('Campaign not found');
+  // async launch(campaignId: string, userId: string) {
+  //   const campaign = await this.campaignModel.findById(campaignId);
+  //   console.log(campaign);
 
-    // update status → Running
-    campaign.status = 'Running';
-    campaign.launchedAt = new Date();
+  //   if (!campaign) throw new NotFoundException('Campaign not found');
 
-    await campaign.save();
+  //   // update status → Running
+  //   campaign.status = 'Running';
+  //   campaign.launchedAt = new Date();
+  //   await campaign.save();
 
-    // fetch contacts by campaign tags
-    const contacts = await this.contactModel.find({
-      workspaceId: campaign.workspace,
-      createdBy: campaign.createdBy,
-      tags: { $in: campaign.selectedTags || [] },
-    });
+  //   console.log(campaign.status);
 
-    if (!contacts.length) {
-      campaign.status = 'Completed';
-      await campaign.save();
-      return { message: 'No contacts found, campaign completed immediately' };
-    }
+  //   // fetch contacts by campaign tags
+  //   const contacts = await this.contactModel.find({
+  //     workspaceId: campaign.workspace,
+  //     createdBy: campaign.createdBy,
+  //     tags: { $in: campaign.selectedTags || [] },
+  //   });
 
-    let i = 0;
-    const interval = setInterval(async () => {
-      if (i >= contacts.length) {
-        clearInterval(interval);
+  //   if (!contacts.length) {
+  //     campaign.status = 'Completed';
+  //     await campaign.save();
+  //     return { message: 'No contacts found, campaign completed immediately' };
+  //   }
 
-        // mark campaign completed
-        campaign.status = 'Completed';
+  //   let i = 0;
+  //   const interval = setInterval(async () => {
+  //     if (i >= contacts.length) {
+  //       clearInterval(interval);
 
-        await campaign.save();
-        return;
-      }
+  //       // mark campaign completed
+  //       campaign.status = 'Completed';
 
-      const c = contacts[i];
+  //       await campaign.save();
+  //       return;
+  //     }
 
-      await this.campaignMessageModel.create({
-        campaign: campaign._id, // required ref
-        contact: c._id, // required ref
-        workspaceId: campaign.workspace,
-        status: 'Pending',
-        createdBy: userId,
+  //     const c = contacts[i];
 
-        // take snapshot of message template at launch time
-        messageSnapshot: {
-          text: campaign.message?.text || '',
-          imageUrl: campaign.message?.imageUrl || '',
-        },
+  //     await this.campaignMessageModel.create({
+  //       campaign: campaign._id, // required ref
+  //       contact: c._id, // required ref
+  //       workspaceId: campaign.workspace,
+  //       status: 'Pending',
+  //       createdBy: userId,
 
-        // take snapshot of contact at launch time
-        contactSnapshot: {
-          name: c.name,
-          phoneNumber: c.phoneNumber,
-          tags: c.tags,
-        },
-      });
+  //       // take snapshot of message template at launch time
+  //       messageSnapshot: {
+  //         text: campaign.message?.text || '',
+  //         imageUrl: campaign.message?.imageUrl || '',
+  //       },
 
-      i++;
-    }, 1000);
+  //       // take snapshot of contact at launch time
+  //       contactSnapshot: {
+  //         name: c.name,
+  //         phoneNumber: c.phoneNumber,
+  //         tags: c.tags,
+  //       },
+  //     });
 
-    return { message: 'Campaign launched, messages are being inserted' };
-  }
+  //     i++;
+  //   }, 1000);
+
+  //   return { message: 'Campaign launched, messages are being inserted' };
+  // }
 
   /** Get campaign messages (paginated) */
   async getMessages(
@@ -250,57 +252,53 @@ export class CampaignService {
       .exec();
   }
 
-  private sleep(ms: number) {
-    return new Promise((res) => setTimeout(res, ms));
-  }
-
   // Launch campaign: create one CampaignMessage doc and append to sentMessages[] at 1s interval
   async launchCampaign(campaignId: string) {
     const campaign = await this.campaignModel.findById(campaignId);
     if (!campaign) throw new NotFoundException('Campaign not found');
 
-    // 🎯 Fetch targeted contacts by tags
+    campaign.status = 'Running';
+    campaign.launchedAt = new Date();
+    await campaign.save();
+
+    // 🎯 Fire background job (no await)
+    this.processCampaign(campaign);
+
+    return { success: true, status: 'Running' };
+  }
+
+  // helper
+  private async processCampaign(campaign: CampaignDocument) {
     const contacts = await this.contactModel.find({
       workspaceId: campaign.workspace,
       tags: { $in: campaign.selectedTags },
     });
 
-    // Create campaign message document with empty sentMessages[]
     const campaignMessage = await this.campaignMessageModel.create({
       campaign: campaign._id,
       messageSnapshot: {
         text: campaign.message.text,
         imageUrl: campaign.message.imageUrl,
       },
-      sentMessages: [], // initially empty
+      sentMessages: [],
     });
 
-    // Process contacts one by one (simulate sending with delay)
     for (const contact of contacts) {
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // ⏱️ 1 sec delay
-
-      await this.campaignMessageModel.findByIdAndUpdate(
-        campaignMessage._id,
-        {
-          $push: {
-            sentMessages: {
-              name: contact.name,
-              phoneNumber: contact.phoneNumber,
-              status: 'SENT',
-              sentAt: new Date(),
-            },
+      await new Promise((res) => setTimeout(res, 3000));
+      await this.campaignMessageModel.findByIdAndUpdate(campaignMessage._id, {
+        $push: {
+          sentMessages: {
+            name: contact.name,
+            phoneNumber: contact.phoneNumber,
+            status: 'SENT',
+            sentAt: new Date(),
           },
         },
-        { new: true },
-      );
+      });
     }
 
-    // ✅ Update campaign status after sending all
     campaign.status = 'Completed';
-    campaign.launchedAt = new Date();
     await campaign.save();
-
-    return { success: true, campaignId: campaign._id };
   }
 
   async getCampaignMessageForCampaign(campaignId: string): Promise<any> {
