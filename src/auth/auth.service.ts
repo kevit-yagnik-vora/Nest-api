@@ -51,7 +51,7 @@ export class AuthService {
       phoneNumber: user.phoneNumber,
       workspaces: user.workspaces,
     };
-    return this.jwt.signAsync(payload, { expiresIn: '10s' }); // uses configured secret/expiry
+    return this.jwt.signAsync(payload, { expiresIn: '5m' }); // uses configured secret/expiry
   }
 
   async refreshToken(refreshToken: string) {
