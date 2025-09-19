@@ -44,28 +44,23 @@ export class AuthService {
 
   private async signToken(user): Promise<string> {
     const payload = {
-      userId: user.id,
+      userId: user._id,
       email: user.email,
       role: user.role,
       name: user.name,
       phoneNumber: user.phoneNumber,
       workspaces: user.workspaces,
     };
-    return this.jwt.signAsync(payload, { expiresIn: '5d' }); // uses configured secret/expiry
+    return this.jwt.signAsync(payload, { expiresIn: '10s' }); // uses configured secret/expiry
   }
 
   async refreshToken(refreshToken: string) {
-    console.log(refreshToken);
     const tokenDoc = await this.refreshTokenModel.findOne({
       token: refreshToken,
     });
 
-    console.log(tokenDoc);
-
     if (!tokenDoc) throw new UnauthorizedException('Invalid refresh token');
     const user = await this.usersService.getUserById(tokenDoc.userId);
-
-    // Issue new access token
 
     return { access_token: await this.signToken(user) };
   }
@@ -73,9 +68,7 @@ export class AuthService {
   async logout(refreshToken: string) {
     await this.refreshTokenModel
       .deleteOne({ token: refreshToken })
-      .then(() => {
-        console.log('Logout Success');
-      })
+      .then(() => {})
       .catch((err) => {
         console.log(err);
       });

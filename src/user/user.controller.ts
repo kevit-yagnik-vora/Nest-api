@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -8,6 +9,7 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
+import { Types } from 'mongoose';
 import { UserService } from './user.service';
 import { User } from './schemas/user.schema';
 import { CreateUserDto } from './dtos/create-user.dto';
@@ -32,8 +34,8 @@ export class UserController {
 
   @Get(':id')
   async getUserById(@Param('id') id: string) {
-    if (!id) {
-      throw new Error('User ID is required');
+    if (!id || id === 'undefined' || !Types.ObjectId.isValid(id)) {
+      throw new BadRequestException('Invalid or missing User ID');
     }
     const user = await this.userService.getUserById(id);
     return user;
@@ -41,8 +43,8 @@ export class UserController {
 
   @Delete(':id')
   async deleteUserById(@Param('id') id: string) {
-    if (!id) {
-      throw new Error('User ID is required');
+    if (!id || id === 'undefined' || !Types.ObjectId.isValid(id)) {
+      throw new BadRequestException('Invalid or missing User ID');
     }
     const user = await this.userService.deleteUser(id);
     return { message: 'User deleted successfully', data: user };
@@ -50,8 +52,8 @@ export class UserController {
 
   @Put(':id')
   async updateUserById(@Param('id') id: string, @Body() data: Required<User>) {
-    if (!id) {
-      throw new Error('User ID is required');
+    if (!id || id === 'undefined' || !Types.ObjectId.isValid(id)) {
+      throw new BadRequestException('Invalid or missing User ID');
     }
     const user = await this.userService.updateUser(id, data);
     return { message: 'User updated successfully', data: user };

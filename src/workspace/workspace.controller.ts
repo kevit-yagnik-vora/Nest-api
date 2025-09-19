@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -16,6 +17,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { Types } from 'mongoose';
 import { WorkspaceService } from './workspace.service';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { CreateWorkspaceDto } from './dtos/workspace.dto';
@@ -27,27 +29,24 @@ import { UpdateUserRoleDto } from './dtos/update-user-role.dto';
 export class WorkspaceController {
   constructor(private readonly workspaceService: WorkspaceService) {}
 
-  // 1. UPDATED THE ROUTE to match your frontend API call
   @Get('all')
   async getAllWorkspaces(
     @Query('page') page: number = 1,
-    @Query('limit') limit: number = 10, // A default of 10 is common
-    // 2. ADDED the 'order' query parameter with a default value
+    @Query('limit') limit: number = 10,
     @Query('order') order: string = 'asc',
   ) {
-    // 3. PASS all parameters to the service. The '+' ensures they are treated as numbers.
     return this.workspaceService.getAllWorkspaces(+page, +limit, order);
   }
 
-  @UseGuards(AuthGuard) // Protect this route
+  @UseGuards(AuthGuard)
   @Get('my')
   getMyWorkspaces(
-    @Request() req, // Get the full request object
+    @Request() req,
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 6,
     @Query('order') order: string = 'asc',
   ) {
-    const userId: any = req.user.userId; // Extract user ID from the JWT payload
+    const userId: any = req.user.userId;
     return this.workspaceService.getMyWorkspaces(userId, +page, +limit, order);
   }
 
@@ -71,6 +70,13 @@ export class WorkspaceController {
     @Param('id') workspaceId: string,
     @Body() addUserDto: AddUserDto,
   ) {
+    if (
+      !workspaceId ||
+      workspaceId === 'undefined' ||
+      !Types.ObjectId.isValid(workspaceId)
+    ) {
+      throw new BadRequestException('Invalid or missing Workspace ID');
+    }
     return this.workspaceService.addUser(workspaceId, addUserDto);
   }
 
@@ -98,6 +104,9 @@ export class WorkspaceController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
+    if (!id || id === 'undefined' || !Types.ObjectId.isValid(id)) {
+      throw new BadRequestException('Invalid or missing Workspace ID');
+    }
     return this.workspaceService.findOneById(id);
   }
 

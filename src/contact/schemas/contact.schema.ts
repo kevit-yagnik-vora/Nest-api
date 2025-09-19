@@ -23,6 +23,5 @@ export class Contact {
 
 export const ContactSchema = SchemaFactory.createForClass(Contact);
 
-// Indexes
 ContactSchema.index({ workspaceId: 1, phoneNumber: 1 });
 ContactSchema.index({ workspaceId: 1, tags: 1 });

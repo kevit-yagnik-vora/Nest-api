@@ -26,15 +26,6 @@ export class ContactController {
     @InjectModel(Contact.name) private contactModel: Model<ContactDocument>,
   ) {}
 
-  @Get('getAllContacts')
-  async getAllContacts() {
-    return {
-      message: 'Contact Fetched Successfully',
-      data: await this.contactService.getAllContacts(),
-    };
-  }
-
-  // 👇 fixed route
   @Get('count')
   async count(
     @Query('workspaceId') workspaceId: string,
@@ -46,8 +37,6 @@ export class ContactController {
           .map((s) => s.trim())
           .filter(Boolean)
       : [];
-
-    console.log(tags);
 
     const filter: any = { workspaceId };
     if (tags.length) filter.tags = { $in: tags };
@@ -117,15 +106,9 @@ export class ContactController {
     };
   }
 
-  // 👇 dynamic routes must be LAST
   @Get(':contactId')
   async getContact(@Param('contactId') contactId: string) {
     const contact = await this.contactService.getContactById(contactId);
     return contact;
-  }
-
-  @Get(':id')
-  async getContactById(@Param('id') id: string) {
-    return this.contactService.getContactById(id);
   }
 }

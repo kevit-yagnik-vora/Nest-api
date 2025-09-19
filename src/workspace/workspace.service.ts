@@ -28,13 +28,10 @@ export class WorkspaceService {
   async getAllWorkspaces(
     page: number = 1,
     limit: number = 10,
-    order: string = 'asc', // Default to 'asc' if not provided
+    order: string = 'asc',
   ) {
     const skip = (page - 1) * limit;
 
-    // 1. DYNAMIC SORT LOGIC
-    // We create a sort object. If order is 'desc', Mongoose uses -1.
-    // For anything else (including 'asc'), it uses 1.
     const sortOptions: { [key: string]: SortOrder } = {
       name: order as SortOrder,
     };
@@ -49,7 +46,7 @@ export class WorkspaceService {
         })
         .skip(skip)
         .limit(limit)
-        .sort(sortOptions), // 2. USE THE DYNAMIC SORT OBJECT HERE
+        .sort(sortOptions),
       this.workspaceModel.countDocuments(),
     ]);
 
@@ -97,27 +94,19 @@ export class WorkspaceService {
   }
 
   async findOneById(id: string) {
-    // 1. Fetch the workspace and populate its creator's details
     const workspace = await this.workspaceModel
       .findById(id)
       .populate('createdBy', 'name email')
       .exec();
 
-    // If no workspace is found, throw a standard 404 error
     if (!workspace) {
       throw new NotFoundException(`Workspace with ID "${id}" not found.`);
     }
-
-    // 2. Fetch all users who are members of this workspace
-    // This assumes your User schema has a field like:
-    // @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Workspace' }] })
-    // workspaces: Workspace[];
     const usersInWorkspace = await this.userModel
       .find({ 'workspaces.workspaceId': id })
-      .select('name email workspaces') // <-- IMPORTANT: Include the 'workspaces' field
+      .select('name email workspaces')
       .exec();
 
-    // THE CHANGE: Map the users to include their specific role for THIS workspace
     const usersWithRoles = usersInWorkspace.map((user) => {
       const workspaceInfo = user.workspaces.find(
         (ws) => ws.workspaceId.toString() === id,
@@ -126,7 +115,7 @@ export class WorkspaceService {
         _id: user._id,
         name: user.name,
         email: user.email,
-        role: workspaceInfo ? workspaceInfo.role : 'N/A', // Add the role
+        role: workspaceInfo ? workspaceInfo.role : 'N/A',
       };
     });
 
@@ -136,11 +125,9 @@ export class WorkspaceService {
   async addUser(workspaceId: string, addUserDto: AddUserDto) {
     const { email, role, name, phoneNumber } = addUserDto;
 
-    // 1. Check if the user exists
     let user = await this.userModel.findOne({ email }).exec();
 
     if (user) {
-      // CASE A: User exists
       const isAlreadyMember = user.workspaces.some(
         (ws) => ws.workspaceId.toString() === workspaceId,
       );
@@ -149,16 +136,12 @@ export class WorkspaceService {
           `User is already a member of this workspace.`,
         );
       }
-      // Add workspace to existing user
       user.workspaces.push({
         workspaceId: new Types.ObjectId(workspaceId),
         role,
       });
     } else {
-      // CASE B: User does not exist, so we create them
-      // Check if required creation fields are present
       if (name && phoneNumber) {
-        // If yes, proceed to create the new user.
         const tempPassword = 'password123';
         const passwordHash = await bcrypt.hash(tempPassword, 10);
 
@@ -173,8 +156,6 @@ export class WorkspaceService {
           `New user created. Email: ${email}, Temp Password: ${tempPassword}`,
         );
       } else {
-        // If no, this was the initial check. We must throw a 404 to tell the frontend
-        // that the user was not found and it should now ask for creation details.
         throw new NotFoundException(`User with email "${email}" not found.`);
       }
     }
@@ -185,24 +166,19 @@ export class WorkspaceService {
   }
 
   async removeUser(workspaceId: string, userId: string) {
-    // 1. Find the user by their ID
     const user = await this.userModel.findById(userId).exec();
     if (!user) {
       throw new NotFoundException(`User with ID "${userId}" not found.`);
     }
 
-    // 2. Check if the user is actually in the workspace
     const workspaceIndex = user.workspaces.findIndex(
       (ws) => ws.workspaceId.toString() === workspaceId,
     );
 
     if (workspaceIndex === -1) {
-      // User is not in the workspace, so there's nothing to do.
-      // We can return a success message as the end state is achieved.
       return { message: 'User was not in the workspace.' };
     }
 
-    // 3. Remove the workspace entry from the user's workspaces array
     user.workspaces.splice(workspaceIndex, 1);
 
     await user.save();
@@ -241,12 +217,11 @@ export class WorkspaceService {
   ) {
     const { role } = updateUserRoleDto;
 
-    // Find the user and update the specific sub-document in the workspaces array
     const updatedUser = await this.userModel
       .findOneAndUpdate(
         { _id: userId, 'workspaces.workspaceId': workspaceId },
         { $set: { 'workspaces.$.role': role } },
-        { new: true }, // Return the updated document
+        { new: true },
       )
       .exec();
 

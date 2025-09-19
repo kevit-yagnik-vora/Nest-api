@@ -16,7 +16,6 @@ export class AddUserDto {
   @IsNotEmpty()
   role: 'Editor' | 'Viewer';
 
-  // These fields are only required when creating a new user
   @IsOptional()
   @IsString()
   @MinLength(2)

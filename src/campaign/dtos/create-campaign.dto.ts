@@ -16,25 +16,27 @@ export class MessageDto {
   @IsString()
   imageUrl?: string;
 }
-// dto/create-campaign.dto.ts
 export class CreateCampaignDto {
-  @IsString() @IsNotEmpty() name: string;
-  @IsString() @IsOptional() description?: string;
-  @IsArray() @IsOptional() selectedTags?: string[]; // tags used to select contacts
-  @ValidateNested() @Type(() => MessageDto) message: {
-    text: string;
-    imageUrl?: string;
-  };
-  @IsMongoId() @IsNotEmpty() workspace: string;
-}
+  @IsString()
+  @IsNotEmpty()
+  name: string;
 
-// dto/update-campaign.dto.ts
-export class UpdateCampaignDto {
-  @IsString() @IsOptional() name?: string;
-  @IsString() @IsOptional() description?: string;
-  @IsArray() @IsOptional() selectedTags?: string[];
-  @ValidateNested() @Type(() => MessageDto) @IsOptional() message?: {
+  @IsString()
+  @IsOptional()
+  description?: string;
+
+  @IsArray()
+  @IsOptional()
+  selectedTags?: string[];
+
+  @ValidateNested()
+  @Type(() => MessageDto)
+  message: {
     text: string;
     imageUrl?: string;
   };
+
+  @IsMongoId()
+  @IsNotEmpty()
+  workspace: string;
 }
