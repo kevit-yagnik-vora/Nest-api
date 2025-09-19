@@ -20,6 +20,7 @@ import { UpdateMessageTemplateDto } from './dtos/update-message-template.dto';
 @Controller('message-template')
 export class MessageTemplateController {
   constructor(private messageTemplateService: MessageTemplateService) {}
+
   @Get('')
   async getAllMessageTemplates() {
     const data = await this.messageTemplateService.getAllMessageTemplates();
@@ -53,6 +54,7 @@ export class MessageTemplateController {
       data,
     };
   }
+
   @Put(':id')
   async updateMessageTemplate(
     @Param('id') id: string,

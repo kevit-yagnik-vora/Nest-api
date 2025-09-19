@@ -1,4 +1,3 @@
-// dto/create-message-template.dto.ts
 import {
   IsString,
   IsNotEmpty,

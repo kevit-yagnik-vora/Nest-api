@@ -20,7 +20,6 @@ import { AuthGuard } from 'src/auth/auth.guard';
 import { UpdateCampaignDto } from './dtos/update-campaign.dto';
 
 @UseGuards(AuthGuard)
-// campaigns.controller.ts (strip-down)
 @Controller('campaigns')
 export class CampaignController {
   constructor(private readonly svc: CampaignService) {}
@@ -41,7 +40,6 @@ export class CampaignController {
 
   @Post()
   create(@Body() dto: CreateCampaignDto, @Req() req) {
-    // set createdBy from auth if available
     dto['createdBy'] = req.user._id;
     return this.svc.create(dto, req);
   }
@@ -61,24 +59,9 @@ export class CampaignController {
     return this.svc.copy(id, req);
   }
 
-  // @Post(':id/launch')
-  // launch(@Param('id') id: string, @Req() req) {
-  //   return this.svc.launch(id, req.user.userId); // triggers background processing
-  // }
-
-  // @Get(':id/messages')
-  // async getCampaignMessages(@Param('id') id: string) {
-  //   return this.svc.getCampaignMessages(id);
-  // }
-
   @Get(':id/details')
   async getCampaignDetails(@Param('id') campaignId: string) {
     return this.svc.getCampaignDetails(campaignId);
-  }
-
-  @Get(':id/summary')
-  summary(@Param('id') id: string) {
-    return this.svc.getSummary(id);
   }
 
   @Post(':id/launch')

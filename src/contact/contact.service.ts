@@ -13,10 +13,6 @@ export class ContactService {
     @InjectModel(Contact.name) private contactModel: Model<ContactDocument>,
   ) {}
 
-  async getAllContacts() {
-    return this.contactModel.find().exec();
-  }
-
   async getContactById(id: string) {
     const contact = await this.contactModel.findById(id).exec();
     if (!contact) throw new NotFoundException('Contact Not Found');
@@ -45,7 +41,6 @@ export class ContactService {
     return contact;
   }
 
-  // contacts.service.ts
   async contactsByWorkspace(
     workspaceId: string,
     user: any,

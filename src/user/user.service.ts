@@ -52,7 +52,6 @@ export class UserService {
         populate: {
           path: 'workspaceId',
           model: 'Workspace',
-          // 1. Optimize the query to only fetch the fields you need
           select: '_id name',
         },
       })
@@ -62,13 +61,11 @@ export class UserService {
       throw new NotFoundException('User Not Found');
     }
 
-    // 2. Transform the result before returning it
-    const userObject = user.toObject(); // Convert Mongoose document to a plain object
+    const userObject = user.toObject();
 
     userObject.workspaces = userObject.workspaces.map((ws: any) => ({
-      workspaceId: ws.workspaceId, // Rename 'workspaceId' to 'workspace'
+      workspaceId: ws.workspaceId,
       role: ws.role,
-      // The subdocument _id is automatically excluded here
     }));
 
     return userObject;

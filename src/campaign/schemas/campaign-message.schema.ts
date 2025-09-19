@@ -6,9 +6,8 @@ export type CampaignMessageDocument = CampaignMessage & Document;
 @Schema({ timestamps: true })
 export class CampaignMessage {
   @Prop({ type: Types.ObjectId, ref: 'Campaign', required: true, unique: true })
-  campaign: Types.ObjectId; // one doc per campaign
+  campaign: Types.ObjectId;
 
-  // snapshot of the message at launch time
   @Prop({
     type: {
       text: { type: String, required: true },
@@ -21,14 +20,13 @@ export class CampaignMessage {
     imageUrl?: string;
   };
 
-  // list of per-contact send records
   @Prop({
     type: [
       {
         contactId: { type: Types.ObjectId, ref: 'Contact' },
         name: { type: String, required: true },
         phoneNumber: { type: String, required: true },
-        status: { type: String, default: 'Pending' }, // Pending | Sent | Failed
+        status: { type: String, default: 'Pending' },
         sentAt: { type: Date },
       },
     ],
@@ -45,4 +43,4 @@ export class CampaignMessage {
 
 export const CampaignMessageSchema =
   SchemaFactory.createForClass(CampaignMessage);
-CampaignMessageSchema.index({ campaign: 1 }, { unique: true }); // ensure one per campaign
+CampaignMessageSchema.index({ campaign: 1 }, { unique: true });

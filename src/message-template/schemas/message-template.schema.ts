@@ -33,5 +33,4 @@ export class MessageTemplate {
 export const MessageTemplateSchema =
   SchemaFactory.createForClass(MessageTemplate);
 
-// ✅ Corrected Index (was `workSpaceUsersId` in your code, should be `workspaceId`)
 MessageTemplateSchema.index({ workspaceId: 1, type: 1 });
