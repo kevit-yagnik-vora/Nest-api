@@ -909,11 +909,32 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzFhMWIyYzNkNGU1ZjZhN2I4YzlkMDEiLCJlbWFpbCI6ImFhcmF2LnNoYXJtYUBleGFtcGxlLmNvbSIsIm5hbWUiOiJBYXJhdiBTaGFybWEiLCJwaG9uZU51bWJlciI6Ijk4NzY1NDMyMTAiLCJ3b3Jrc3BhY2VzIjpbeyJfaWQiOiI2OGQyMzY5MjkwZDM3NWE1OTk3ZTNiNWYiLCJ3b3Jrc3BhY2VJZCI6IjY3MWExYjJjM2Q0ZTVmNmE3YjhjOWUwMSIsInJvbGUiOiJFZGl0b3IifSx7Il9pZCI6IjY4ZDIzNjkyOTBkMzc1YTU5OTdlM2I2MCIsIndvcmtzcGFjZUlkIjoiNjcxYTFiMmMzZDRlNWY2YTdiOGM5ZTA1Iiwicm9sZSI6IlZpZXdlciJ9XSwiaWF0IjoxNzU4NjA2OTk0LCJleHAiOjE3NTg2MDcyOTR9.XdO54-1KZRfyt7dW08fni3CopELx_eECV7zCFITFHYY",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzFhMWIyYzNkNGU1ZjZhN2I4YzlkMDEiLCJlbWFpbCI6ImFhcmF2LnNoYXJtYUBleGFtcGxlLmNvbSIsIm5hbWUiOiJBYXJhdiBTaGFybWEiLCJwaG9uZU51bWJlciI6Ijk4NzY1NDMyMTAiLCJ3b3Jrc3BhY2VzIjpbeyJfaWQiOiI2OGQyNDRmYzc4ZDYzNTJlMmYwZDVhMTEiLCJ3b3Jrc3BhY2VJZCI6IjY3MWExYjJjM2Q0ZTVmNmE3YjhjOWUwMSIsInJvbGUiOiJFZGl0b3IifSx7Il9pZCI6IjY4ZDI0NGZjNzhkNjM1MmUyZjBkNWExMiIsIndvcmtzcGFjZUlkIjoiNjcxYTFiMmMzZDRlNWY2YTdiOGM5ZTA1Iiwicm9sZSI6IlZpZXdlciJ9XSwiaWF0IjoxNzU4NjEwNjg0LCJleHAiOjE3NTg2MTA5ODR9.EX4qEQADaoey2l1PaZs6UkhSNAi7geAEPnM0vV6wVJ0",
 						"type": "text"
 					}
 				],
-				"url": "http://localhost:3000/dashboard/overview"
+				"url": {
+					"raw": "http://localhost:3000/dashboard/overview?from=2025-09-01&to=2025-09-30",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"dashboard",
+						"overview"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "2025-09-01"
+						},
+						{
+							"key": "to",
+							"value": "2025-09-30"
+						}
+					]
+				}
 			},
 			"response": []
 		}
