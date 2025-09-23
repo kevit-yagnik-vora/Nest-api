@@ -909,36 +909,11 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzFhMWIyYzNkNGU1ZjZhN2I4YzlkMDEiLCJlbWFpbCI6ImFhcmF2LnNoYXJtYUBleGFtcGxlLmNvbSIsIm5hbWUiOiJBYXJhdiBTaGFybWEiLCJwaG9uZU51bWJlciI6Ijk4NzY1NDMyMTAiLCJ3b3Jrc3BhY2VzIjpbeyJfaWQiOiI2OGNkM2Q3MmI2MTc2ZDEwODk1ZDgwNTIiLCJ3b3Jrc3BhY2VJZCI6IjY3MWExYjJjM2Q0ZTVmNmE3YjhjOWUwMSIsInJvbGUiOiJFZGl0b3IifSx7Il9pZCI6IjY4Y2QzZDcyYjYxNzZkMTA4OTVkODA1MyIsIndvcmtzcGFjZUlkIjoiNjcxYTFiMmMzZDRlNWY2YTdiOGM5ZTA1Iiwicm9sZSI6IlZpZXdlciJ9XSwiaWF0IjoxNzU4MjgxMDc1LCJleHAiOjE3NTgyODEzNzV9.6sU74liP7FOtTzynHcS0h9MsDD85GCdv1vhh1Lxv1aM",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzFhMWIyYzNkNGU1ZjZhN2I4YzlkMDEiLCJlbWFpbCI6ImFhcmF2LnNoYXJtYUBleGFtcGxlLmNvbSIsIm5hbWUiOiJBYXJhdiBTaGFybWEiLCJwaG9uZU51bWJlciI6Ijk4NzY1NDMyMTAiLCJ3b3Jrc3BhY2VzIjpbeyJfaWQiOiI2OGQyMmI4ODc5OGEwMDM5NzI2OWMwZTUiLCJ3b3Jrc3BhY2VJZCI6IjY3MWExYjJjM2Q0ZTVmNmE3YjhjOWUwMSIsInJvbGUiOiJFZGl0b3IifSx7Il9pZCI6IjY4ZDIyYjg4Nzk4YTAwMzk3MjY5YzBlNiIsIndvcmtzcGFjZUlkIjoiNjcxYTFiMmMzZDRlNWY2YTdiOGM5ZTA1Iiwicm9sZSI6IlZpZXdlciJ9XSwiaWF0IjoxNzU4NjA0MTY4LCJleHAiOjE3NTg2MDQ0Njh9.LH41ZNNxAti35Wy32EMMd6gcfXuFuLDg_A_enVkTWAY",
 						"type": "text"
 					}
 				],
-				"url": {
-					"raw": "http://localhost:3000/workspace/all?page=3&limit=6&order=asc",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"workspace",
-						"all"
-					],
-					"query": [
-						{
-							"key": "page",
-							"value": "3"
-						},
-						{
-							"key": "limit",
-							"value": "6"
-						},
-						{
-							"key": "order",
-							"value": "asc"
-						}
-					]
-				}
+				"url": "http://localhost:3000/dashboard"
 			},
 			"response": []
 		}
