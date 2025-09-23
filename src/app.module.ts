@@ -7,6 +7,7 @@ import { WorkspaceModule } from './workspace/workspace.module';
 import { ContactModule } from './contact/contact.module';
 import { MessageTemplateModule } from './message-template/message-template.module';
 import { CampaignModule } from './campaign/campaign.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { CampaignModule } from './campaign/campaign.module';
     ContactModule,
     MessageTemplateModule,
     CampaignModule,
+    DashboardModule,
   ],
   controllers: [],
   providers: [],
